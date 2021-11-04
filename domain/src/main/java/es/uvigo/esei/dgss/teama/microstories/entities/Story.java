@@ -2,6 +2,7 @@ package es.uvigo.esei.dgss.teama.microstories.entities;
 
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -44,20 +45,25 @@ public class Story implements Serializable {
 
     public Story(int id, Date date, String title, String content, Genre genre, Theme theme, Boolean publicated) {
         this.id = id;
-        this.date = date;
-        this.title = title;
-        this.content = content;
-        this.genre = genre;
-        this.theme = theme;
-        this.publicated = publicated;
+        this.setDate(date);
+        this.setTitle(title);
+        this.setContent(content);
+        this.setGenre(genre);
+        this.setTheme(theme);
+        this.setPublicated(publicated);
+    }
+
+    public Story(Date date, String title, String content, Genre genre, Theme theme, Boolean publicated) {
+        this.setDate(date);
+        this.setTitle(title);
+        this.setContent(content);
+        this.setGenre(genre);
+        this.setTheme(theme);
+        this.setPublicated(publicated);
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Date getDate() {
@@ -65,6 +71,11 @@ public class Story implements Serializable {
     }
 
     public void setDate(Date date) {
+        requireNonNull(date, "date can't be null");
+        inclusiveBetween(new Date(0), new Date(), date,
+                "date must be previous to the current time"
+        );
+
         this.date = date;
     }
 
@@ -73,6 +84,8 @@ public class Story implements Serializable {
     }
 
     public void setTitle(String title) {
+        requireNonNull(title, "title can't be null");
+        inclusiveBetween(1, 80, title.length(), "title must have a length between 1 and 80");
         this.title = title;
     }
 
@@ -81,6 +94,8 @@ public class Story implements Serializable {
     }
 
     public void setContent(String content) {
+        requireNonNull(content, "content can't be null");
+        inclusiveBetween(1, 1000, content.length(), "content must have a length between 1 and 1000");
         this.content = content;
     }
 
@@ -89,6 +104,7 @@ public class Story implements Serializable {
     }
 
     public void setGenre(Genre genre) {
+        requireNonNull(genre, "genre can't be null");
         this.genre = genre;
     }
 
@@ -97,6 +113,7 @@ public class Story implements Serializable {
     }
 
     public void setTheme(Theme theme) {
+        requireNonNull(theme, "theme can't be null");
         this.theme = theme;
     }
 
@@ -105,6 +122,7 @@ public class Story implements Serializable {
     }
 
     public void setPublicated(Boolean publicated) {
+        requireNonNull(publicated, "publicated can't be null");
         this.publicated = publicated;
     }
 }
