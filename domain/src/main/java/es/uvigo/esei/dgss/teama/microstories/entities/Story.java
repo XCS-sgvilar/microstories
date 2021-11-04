@@ -1,5 +1,14 @@
+package es.uvigo.esei.dgss.teama.microstories.entities;
+
+import static java.util.Arrays.stream;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.*;
+
 @Entity(name = "Story")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Story implements Serializable {
 
     private static final long serialVersionUID = 1L;
