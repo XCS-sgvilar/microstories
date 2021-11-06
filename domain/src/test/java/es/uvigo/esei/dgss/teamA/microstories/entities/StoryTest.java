@@ -1,4 +1,4 @@
-package es.uvigo.esei.dgss.teama.microstories.entities;
+package es.uvigo.esei.dgss.teamA.microstories.entities;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;

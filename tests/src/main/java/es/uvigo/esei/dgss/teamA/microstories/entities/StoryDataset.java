@@ -1,4 +1,4 @@
-package es.uvigo.esei.dgss.teama.microstories.entities;
+package es.uvigo.esei.dgss.teamA.microstories.entities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

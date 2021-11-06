@@ -1,4 +1,4 @@
-package es.uvigo.esei.dgss.teama.microstories.service.util.security;
+package es.uvigo.esei.dgss.teamA.microstories.service.util.security;
 
 import java.util.function.Supplier;
 
