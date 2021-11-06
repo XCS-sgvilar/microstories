@@ -131,6 +131,10 @@ body {
 	color: #fff;
 }
 
+.carousel-inner {
+    max-height: 300px !important;
+}
+
 #subscribeModal .form-control:focus {
 	border-color: #49506a;
 }
