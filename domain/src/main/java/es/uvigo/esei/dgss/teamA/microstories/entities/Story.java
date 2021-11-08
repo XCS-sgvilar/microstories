@@ -1,13 +1,11 @@
 package es.uvigo.esei.dgss.teamA.microstories.entities;
 
-import static java.util.Arrays.stream;
-import static java.util.Objects.requireNonNull;
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
-
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
 
 @Entity(name = "Story")
 public class Story implements Serializable {
@@ -39,7 +37,7 @@ public class Story implements Serializable {
     @Column(nullable = false)
     private Boolean publicated;
 
-    public Story(){
+    public Story() {
 
     }
 
@@ -67,7 +65,7 @@ public class Story implements Serializable {
     }
 
     public Date getDate() {
-        return date;
+        return new Date(date.getTime());
     }
 
     public void setDate(Date date) {
@@ -124,5 +122,18 @@ public class Story implements Serializable {
     public void setPublicated(Boolean publicated) {
         requireNonNull(publicated, "publicated can't be null");
         this.publicated = publicated;
+    }
+
+    @Override
+    public String toString() {
+        return "Story{" +
+                "id=" + id +
+                ", date=" + date +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", genre=" + genre +
+                ", theme=" + theme +
+                ", publicated=" + publicated +
+                '}';
     }
 }

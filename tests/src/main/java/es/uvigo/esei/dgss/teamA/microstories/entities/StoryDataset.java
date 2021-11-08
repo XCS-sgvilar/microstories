@@ -1,5 +1,7 @@
 package es.uvigo.esei.dgss.teamA.microstories.entities;
 
+import es.uvigo.esei.dgss.teamA.microstories.entities.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -167,6 +169,12 @@ public class StoryDataset {
                 .filter(Story::getPublicated)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public static List<Story> recentStories() {
+        return stream(stories())
+                .sorted(Comparator.comparing(Story::getDate).reversed())
+                .collect(Collectors.toList());
     }
 
 }

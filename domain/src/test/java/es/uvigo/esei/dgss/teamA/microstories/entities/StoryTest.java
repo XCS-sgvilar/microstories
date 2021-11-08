@@ -1,5 +1,6 @@
 package es.uvigo.esei.dgss.teamA.microstories.entities;
 
+import es.uvigo.esei.dgss.teamA.microstories.entities.*;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;

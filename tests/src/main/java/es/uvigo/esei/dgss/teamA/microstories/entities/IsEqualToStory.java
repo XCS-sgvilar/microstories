@@ -1,4 +1,4 @@
-package es.uvigo.esei.dgss.teama.microstories.entities;
+package es.uvigo.esei.dgss.teamA.microstories.entities;
 
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
@@ -8,6 +8,31 @@ public class IsEqualToStory extends IsEqualToEntity<Story> {
 
     public IsEqualToStory(Story story) {
         super(story);
+    }
+
+    @Factory
+    public static IsEqualToStory equalToStory(Story story) {
+        return new IsEqualToStory(story);
+    }
+
+    @Factory
+    public static Matcher<Iterable<? extends Story>> containsStorysInAnyOrder(Story... stories) {
+        return containsEntityInAnyOrder(IsEqualToStory::equalToStory, stories);
+    }
+
+    @Factory
+    public static Matcher<Iterable<? extends Story>> containsStorysInAnyOrder(Iterable<Story> stories) {
+        return containsEntityInAnyOrder(IsEqualToStory::equalToStory, stories);
+    }
+
+    @Factory
+    public static Matcher<Iterable<? extends Story>> containsStorysInOrder(Story... stories) {
+        return containsEntityInOrder(IsEqualToStory::equalToStory, stories);
+    }
+
+    @Factory
+    public static Matcher<Iterable<? extends Story>> containsStorysInOrder(Iterable<Story> stories) {
+        return containsEntityInOrder(IsEqualToStory::equalToStory, stories);
     }
 
     @Override
@@ -25,31 +50,6 @@ public class IsEqualToStory extends IsEqualToEntity<Story> {
                     && checkAttribute("theme", Story::getTheme, actual)
                     && checkAttribute("publicated", Story::getPublicated, actual);
         }
-    }
-
-    @Factory
-    public static IsEqualToStory equalToStory(Story story) {
-        return new IsEqualToStory(story);
-    }
-
-    @Factory
-    public static Matcher<Iterable<? extends Story>> containsStorysInAnyOrder(Story ... stories) {
-        return containsEntityInAnyOrder(IsEqualToStory::equalToStory, stories);
-    }
-
-    @Factory
-    public static Matcher<Iterable<? extends Story>> containsStorysInAnyOrder(Iterable<Story> stories) {
-        return containsEntityInAnyOrder(IsEqualToStory::equalToStory, stories);
-    }
-
-    @Factory
-    public static Matcher<Iterable<? extends Story>> containsStorysInOrder(Story ... stories) {
-        return containsEntityInOrder(IsEqualToStory::equalToStory, stories);
-    }
-
-    @Factory
-    public static Matcher<Iterable<? extends Story>> containsStorysInOrder(Iterable<Story> stories) {
-        return containsEntityInOrder(IsEqualToStory::equalToStory, stories);
     }
 
 }
