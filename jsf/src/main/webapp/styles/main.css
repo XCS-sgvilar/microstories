@@ -132,7 +132,20 @@ body {
 }
 
 .carousel-inner {
-    max-height: 300px !important;
+    max-height: 40vh !important;
+}
+
+.carousel-inner img {
+    height: 40vh;
+}
+
+.title {
+    color: #d7e1e9;
+    font-family: serif;
+}
+
+.advancedSearch {
+    background-color: white;
 }
 
 #subscribeModal .form-control:focus {
