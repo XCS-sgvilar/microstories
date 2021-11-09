@@ -67,7 +67,7 @@ public class StoryResourceRestTest {
 
     @Test
     @InSequence(3)
-    @ShouldMatchDataSet("owners.xml")
+    @ShouldMatchDataSet("stories.xml")
     @CleanupUsingScript({
             "cleanup.sql", "cleanup-autoincrement.sql"
     })
