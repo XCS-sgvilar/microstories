@@ -2,7 +2,6 @@ package es.uvigo.esei.dgss.teamA.microstories.service;
 
 
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
-import es.uvigo.esei.dgss.teamA.service.StoryService;
 import es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

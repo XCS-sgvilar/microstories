@@ -1,4 +1,4 @@
-package es.uvigo.esei.dgss.teamA.service;
+package es.uvigo.esei.dgss.teamA.microstories.service;
 
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
 

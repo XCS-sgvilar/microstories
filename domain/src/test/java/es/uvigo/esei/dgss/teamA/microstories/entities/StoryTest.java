@@ -1,17 +1,15 @@
 package es.uvigo.esei.dgss.teamA.microstories.entities;
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.*;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import static org.apache.commons.lang3.StringUtils.repeat;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-
 
 import java.util.Date;
+
+import static org.apache.commons.lang3.StringUtils.repeat;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class StoryTest {
 
