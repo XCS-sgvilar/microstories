@@ -32,7 +32,11 @@ public class Story implements Serializable {
 
     @Column(nullable = false, length = 15)
     @Enumerated(EnumType.STRING)
-    private Theme theme;
+    private Theme mainTheme;
+
+    @Column(nullable = true, length = 15)
+    @Enumerated(EnumType.STRING)
+    private Theme secondaryTheme;
 
     @Column(nullable = false)
     private Boolean publicated;
@@ -41,22 +45,24 @@ public class Story implements Serializable {
 
     }
 
-    public Story(int id, Date date, String title, String content, Genre genre, Theme theme, Boolean publicated) {
+    public Story(int id, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
         this.id = id;
         this.setDate(date);
         this.setTitle(title);
         this.setContent(content);
         this.setGenre(genre);
-        this.setTheme(theme);
+        this.setMainTheme(mainTheme);
+        this.setSecondaryTheme(secondaryTheme);
         this.setPublicated(publicated);
     }
 
-    public Story(Date date, String title, String content, Genre genre, Theme theme, Boolean publicated) {
+    public Story(Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
         this.setDate(date);
         this.setTitle(title);
         this.setContent(content);
         this.setGenre(genre);
-        this.setTheme(theme);
+        this.setMainTheme(mainTheme);
+        this.setSecondaryTheme(secondaryTheme);
         this.setPublicated(publicated);
     }
 
@@ -106,13 +112,23 @@ public class Story implements Serializable {
         this.genre = genre;
     }
 
-    public Theme getTheme() {
-        return theme;
+    public Theme getMainTheme() {
+        return mainTheme;
     }
 
-    public void setTheme(Theme theme) {
-        requireNonNull(theme, "theme can't be null");
-        this.theme = theme;
+    public void setMainTheme(Theme mainTheme) {
+        requireNonNull(mainTheme, "mainTheme can't be null");
+        this.mainTheme = mainTheme;
+    }
+
+    public Theme getSecondaryTheme() {
+        return secondaryTheme;
+    }
+
+    public void setSecondaryTheme(Theme secondaryTheme) {
+        if(!this.getMainTheme().equals(secondaryTheme)){
+            this.secondaryTheme = secondaryTheme;
+        }
     }
 
     public Boolean getPublicated() {
@@ -132,7 +148,8 @@ public class Story implements Serializable {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", genre=" + genre +
-                ", theme=" + theme +
+                ", mainTheme=" + mainTheme +
+                ", secondaryTheme=" + secondaryTheme +
                 ", publicated=" + publicated +
                 '}';
     }
