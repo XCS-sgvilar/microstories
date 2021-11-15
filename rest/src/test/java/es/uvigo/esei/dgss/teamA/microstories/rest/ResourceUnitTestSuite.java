@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
-        ResourceUnitTestSuite.class
+        StoryResourceUnitTest.class
 })
 @RunWith(Suite.class)
 public class ResourceUnitTestSuite {

@@ -25,7 +25,7 @@ public class StoryResource {
         List<Story> stories = storyService.findLastStories();
         List<Story> most_recent = new ArrayList<>();
         if (stories.size() >= 6) {
-            most_recent = stories.subList(0, 5);
+            most_recent = stories.subList(0, 6);
         } else {
             most_recent = stories;
         }
