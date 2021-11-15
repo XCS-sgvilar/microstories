@@ -56,7 +56,7 @@ public class StoryResourceUnitTest extends EasyMockSupport {
 
         assertThat(response, hasOkStatus());
         assertThat(response.getEntity(), is(instanceOf(List.class)));
-        assertThat((List<Story>)response.getEntity(), containsStorysInOrder(stories.subList(0,5)));
+        assertThat((List<Story>)response.getEntity(), containsStorysInOrder(stories.subList(0,6)));
     }
 
     @Test
