@@ -103,6 +103,7 @@ módulo que contiene una capa de servicios REST.
 * **jsf**:
 módulo que contiene la interfaz Web del sistema implementada con Java Server
 Faces (JSF).
+  * Los objetos para manejar las vistas se llamarán como la entidad relacionada con el sufijo "MB" 
 * **ear**:
 módulo destinado, únicamente, a la construcción del EAR desplegable del
 sistema.

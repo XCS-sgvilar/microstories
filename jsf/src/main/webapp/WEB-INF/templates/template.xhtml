@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+            <ui:include src="header.xhtml"/>
+<h:body>
+    <b:container layout="fluid">
+
+        <b:row>
+            <ui:insert name="mostViewed"/>
+        </b:row>
+        <b:row>
+            <ui:insert name="mostRecent"/>
+        </b:row>
+    </b:container>
+</h:body>
+</html>
