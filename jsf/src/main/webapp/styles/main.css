@@ -148,6 +148,16 @@ body {
     background-color: white;
 }
 
+.link {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-family: arial, sans-serif;
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 #subscribeModal .form-control:focus {
 	border-color: #49506a;
 }
@@ -173,4 +183,5 @@ body {
 	.masthead, .mastfoot, .cover-container {
 		width: 1060px;
 	}
+	
 }

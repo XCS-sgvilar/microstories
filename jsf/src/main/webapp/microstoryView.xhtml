@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:em="http://xmlns.jcp.org/jsf/composite/emcomp"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:include src="./WEB-INF/templates/header.xhtml" />
+<h:body>
+
+	<div class="card mx-auto mt-3" style="width: 90%;">
+
+		<div class="card-header">
+			<h:outputText class="card-title" value="#{storyViewMB.story.title}" />
+			<h:outputText class="badge bg-success" value="Published" rendered="#{storyViewMB.story.publicated}">Published</h:outputText>
+			<h:outputText class="badge bg-danger" value="Unpublished" rendered="#{!storyViewMB.story.publicated}">Unpublished</h:outputText>
+		</div>
+		<ul class="list-group list-group-flush d-flex justify-content-end">
+			<li class="list-group-item"><span class="badge bg-success">#{storyViewMB.story.genre}</span>
+				<span class="badge bg-danger">#{storyViewMB.story.mainTheme}</span>
+				<span class="badge bg-danger">#{storyViewMB.story.secondaryTheme}</span>
+			</li>
+		</ul>
+
+		<div class="card-body">
+			<p class="card-text">#{storyViewMB.story.content}</p>
+		</div>
+	</div>
+
+</h:body>
+
+</html>
