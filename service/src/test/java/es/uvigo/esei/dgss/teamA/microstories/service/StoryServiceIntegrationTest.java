@@ -15,9 +15,14 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 import java.util.List;
 
+import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentStory;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentId;
+import static org.hamcrest.CoreMatchers.is;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Arquillian.class)
@@ -49,4 +54,22 @@ public class StoryServiceIntegrationTest {
 
         assertThat(recentStories, containsStorysInOrder(dbStories));
     }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testGetStory() {
+        final Story existentStory = existentStory();
+
+        final Story actualStory = facade.getById(existentStory.getId());
+
+        assertThat(actualStory, is(equalToStory(existentStory)));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testGetStoryNonExistent() {
+        final Story actualStory = facade.getById(nonExistentId());
+        assertNull(actualStory);
+    }
+
 }

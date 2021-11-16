@@ -176,5 +176,16 @@ public class StoryDataset {
                 .sorted(Comparator.comparing(Story::getDate).reversed())
                 .collect(Collectors.toList());
     }
+    public static int existentId() {
+        return 1;
+    }
+
+    public static int nonExistentId() {
+        return 1001;
+    }
+    public static Story existentStory() {
+        return storyWithId(existentId());
+    }
+
 
 }

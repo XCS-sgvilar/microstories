@@ -6,6 +6,7 @@
 	version="2.1">
 	<persistence-unit name="test">
 		<jta-data-source>java:jboss/datasources/dgss2122/teamA/microstories</jta-data-source>
+
 		<class>es.uvigo.esei.dgss.teamA.microstories.entities.Story</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
