@@ -98,6 +98,8 @@ JSF como por la capa REST. Además, será en esta capa en la que se harán los
 controles de acceso.
 * **rest**:
 módulo que contiene una capa de servicios REST.
+  * Las peticiones a la API REST que no encuentren elementos devolverán una BadRequestException.
+  * Las peticiones a la API REST que no estén autorizadas devolverán una ForbiddenException.
 * **jsf**:
 módulo que contiene la interfaz Web del sistema implementada con Java Server
 Faces (JSF).

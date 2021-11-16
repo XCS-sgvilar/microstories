@@ -13,6 +13,8 @@ import static java.util.stream.Collectors.toSet;
 public class StoryDataset {
     public static final String EXISTENT_TITLE = "Aliquam ultrices iaculis odio.";
     public static final String NON_EXISTENT_TITLE = "TeamA";
+    public static final int EXISTENT_ID = 1;
+    public static final int NON_EXISTENT_ID = 1001;
 
     public static Story[] stories(String... logins) {
         final Set<String> loginSet = stream(logins).collect(toSet());

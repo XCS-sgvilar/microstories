@@ -10,13 +10,15 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.stories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.*;
 import static es.uvigo.esei.dgss.teamA.microstories.http.util.HasHttpStatus.hasOkStatus;
 import static java.util.Arrays.asList;
 import static org.easymock.EasyMock.expect;
@@ -73,4 +75,34 @@ public class StoryResourceUnitTest extends EasyMockSupport {
         assertThat(response.getEntity(), is(instanceOf(List.class)));
         assertThat(((List<Story>)response.getEntity()).subList(0,3), containsStorysInOrder(stories));
     }
+
+    @Test
+    public void testGet() {
+        final Story story = storyWithId(existentId());
+
+        expect(facade.getById(story.getId()))
+                .andReturn(story);
+
+        replayAll();
+
+        final Response response = resource.get(story.getId());
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(Story.class)));
+        assertThat((Story) response.getEntity(), is(equalToStory(story)));
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void testGetMissing() {
+        final int id = existentId();
+
+        expect(facade.getById(id))
+                .andReturn(null);
+
+        replayAll();
+
+        resource.get(id);
+    }
+
+
 }

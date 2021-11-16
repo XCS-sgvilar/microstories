@@ -16,18 +16,21 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.is;
 
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.*;
 import static es.uvigo.esei.dgss.teamA.microstories.http.util.HasHttpStatus.hasOkStatus;
+import static es.uvigo.esei.dgss.teamA.microstories.http.util.HasHttpStatus.hasBadRequestStatus;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Arquillian.class)
 public class StoryResourceRestTest {
-    private final static String BASE_PATH = "api/microstory";
+    private final static String BASE_PATH = "api/microstory/";
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -54,7 +57,7 @@ public class StoryResourceRestTest {
     @InSequence(2)
     @RunAsClient
     public void testList(
-            @ArquillianResteasyResource(BASE_PATH + "/recent")
+            @ArquillianResteasyResource(BASE_PATH + "recent")
                     ResteasyWebTarget webTarget
     ) throws Exception {
         final Response response = webTarget.request().get();
@@ -75,6 +78,63 @@ public class StoryResourceRestTest {
     })
     public void afterList() {
     }
+
+    @Test
+    @InSequence(4)
+    @UsingDataSet("stories.xml")
+    @Cleanup(phase = TestExecutionPhase.NONE)
+    public void beforeGet() {}
+
+    @Test
+    @InSequence(5)
+    @RunAsClient
+    public void testGet(
+            @ArquillianResteasyResource(BASE_PATH + EXISTENT_ID)
+                    ResteasyWebTarget webTarget
+    ) throws Exception {
+        final Response response = webTarget.request().get();
+
+        assertThat(response, hasOkStatus());
+
+        final Story story = response.readEntity(Story.class);
+        final Story expected = storyWithId(EXISTENT_ID);
+
+        assertThat(story, is(equalToStory(expected)));
+    }
+
+    @Test
+    @InSequence(6)
+    @ShouldMatchDataSet("stories.xml")
+    @CleanupUsingScript({
+            "cleanup.sql", "cleanup-autoincrement.sql"
+    })
+    public void afterGet() {}
+
+    @Test
+    @InSequence(7)
+    @UsingDataSet("stories.xml")
+    @Cleanup(phase = TestExecutionPhase.NONE)
+    public void beforeGetNonExistent() {}
+
+    @Test
+    @InSequence(8)
+    @RunAsClient
+    public void testGetNonExistent(
+            @ArquillianResteasyResource(BASE_PATH + NON_EXISTENT_ID)
+                    ResteasyWebTarget webTarget
+    ) throws Exception {
+        final Response response = webTarget.request().get();
+
+        assertThat(response, hasBadRequestStatus());
+    }
+
+    @Test
+    @InSequence(9)
+    @ShouldMatchDataSet("stories.xml")
+    @CleanupUsingScript({
+            "cleanup.sql", "cleanup-autoincrement.sql"
+    })
+    public void afterGetNonExistent() {}
 
 
 }

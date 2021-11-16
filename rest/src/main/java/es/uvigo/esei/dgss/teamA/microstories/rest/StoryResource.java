@@ -5,6 +5,7 @@ import es.uvigo.esei.dgss.teamA.microstories.service.StoryService;
 
 
 import javax.ejb.EJB;
+import javax.ejb.EJBAccessException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,5 +33,18 @@ public class StoryResource {
 
         return Response.ok(most_recent).build();
     }
+
+    @Path("{id}")
+    @GET
+    public Response get(@PathParam("id") int id) {
+        final Story story = this.storyService.getById(id);
+
+        if (story == null)
+            throw new BadRequestException();
+        else
+            return Response.ok(story).build();
+
+    }
+
 
 }
