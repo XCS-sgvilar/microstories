@@ -178,6 +178,21 @@ public class StoryDataset {
                 .sorted(Comparator.comparing(Story::getDate).reversed())
                 .collect(Collectors.toList());
     }
+
+    public static List<Story> storiesOf(String text, int start, int end) {
+        final List<Story> stories = new ArrayList<>();
+
+        for (Story story : stories()) {
+            if (story.getTitle().contains(text) || story.getContent().contains(text)) {
+                stories.add(story);
+            }
+        }
+
+        Collections.sort(stories, Comparator.comparing(Story::getDate).reversed());
+
+        return stories.subList(start, end);
+    }
+
     public static int existentId() {
         return 1;
     }
@@ -185,6 +200,7 @@ public class StoryDataset {
     public static int nonExistentId() {
         return 1001;
     }
+
     public static Story existentStory() {
         return storyWithId(existentId());
     }

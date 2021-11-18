@@ -9,26 +9,29 @@ import org.jboss.arquillian.persistence.*;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentStory;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentId;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.*;
 import static org.hamcrest.CoreMatchers.is;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
 @RunWith(Arquillian.class)
 @UsingDataSet("stories.xml")
 @CleanupUsingScript({"cleanup.sql", "cleanup-autoincrement.sql"})
 public class StoryServiceIntegrationTest {
+    public static final String TEXT = "Aliquam";
+    public static final int SIZE = 10;
     @Inject
     private StoryService facade;
 
@@ -72,4 +75,83 @@ public class StoryServiceIntegrationTest {
         assertNull(actualStory);
     }
 
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByTextSuccessfully() {
+
+        final Integer page = 2;
+        final Integer end = SIZE * 2;
+        final List<Story> recentStories = storiesOf(TEXT, SIZE, end);
+
+        List<Story> storyList = this.facade.findStoriesByText(TEXT, page, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertThat(storyList, hasSize(SIZE) );
+        assertThat(recentStories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByTextPageNull(){
+        List<Story> storyList = this.facade.findStoriesByText(TEXT, null, SIZE);
+
+        final List<Story> recentStories = storiesOf(TEXT, 0, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertThat(storyList, hasSize(SIZE) );
+        assertThat(recentStories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByTextPageNegative(){
+        List<Story> storyList = this.facade.findStoriesByText(TEXT, -1, SIZE);
+
+        final List<Story> recentStories = storiesOf(TEXT, 0, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertThat(storyList, hasSize(SIZE) );
+        assertThat(recentStories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByTextSizeNull(){
+        List<Story> storyList = this.facade.findStoriesByText(TEXT, 0, null);
+
+        final List<Story> recentStories = storiesOf(TEXT, 0, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertThat(storyList, hasSize(SIZE) );
+        assertThat(recentStories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByTextSizeNegative(){
+        List<Story> storyList = this.facade.findStoriesByText(TEXT, 0, -1);
+
+        final List<Story> recentStories = storiesOf(TEXT, 0, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertThat(storyList, hasSize(SIZE) );
+        assertThat(recentStories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByTextEmpty(){
+        List<Story> storyList = this.facade.findStoriesByText("", 0, SIZE);
+
+        final List<Story> recentStories = recentStories().subList(0, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertThat(storyList, hasSize(SIZE) );
+        assertThat(recentStories, containsStorysInOrder(storyList));
+    }
+
+    @Test(expected = EJBTransactionRolledbackException.class)
+    public void testFindStoriesByTextNull() {
+        List<Story> storyList = this.facade.findStoriesByText(null, 0, SIZE);
+    }
 }
