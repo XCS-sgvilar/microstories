@@ -30,7 +30,10 @@ public class StoryMB implements Serializable {
     }
 
     public void mostRecent() {
-        this.recentStories = storyService.findLastStories().subList(0, 6)
+
+        List<Story> queriedStories =storyService.findLastStories();
+        this.recentStories = queriedStories
+                .subList(0, Math.min(queriedStories.size(), 6))
                 .stream()
                 .map(this::truncateContent)
                 .collect(Collectors.toList());
