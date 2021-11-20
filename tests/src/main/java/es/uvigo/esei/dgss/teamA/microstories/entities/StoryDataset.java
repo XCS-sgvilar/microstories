@@ -190,7 +190,7 @@ public class StoryDataset {
 
         Collections.sort(stories, Comparator.comparing(Story::getDate).reversed());
 
-        return stories.subList(start, end);
+        return stories.subList(Math.min(stories.size(), start), Math.min(stories.size(), end));
     }
 
     public static int existentId() {

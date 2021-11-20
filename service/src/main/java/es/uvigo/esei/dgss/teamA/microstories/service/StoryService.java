@@ -47,7 +47,7 @@ public class StoryService {
     private Integer getStartPagination(Integer page, Integer size){
         page = checkPage(page);
         size = checkSize(size);
-        return (page == PAGE) ? PAGE : (page * size) - size;
+        return page * size;
     }
 
     private Integer checkSize(Integer size) {
