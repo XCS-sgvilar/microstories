@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <!-- Navbar content -->
+    <div class="container-fluid d-flex justify-content-between">
+        <a class="navbar-brand d-flex align-items-center">μStories</a>
+        <h:form class="form-inline">
+            <div class="row">
+                <div class="col-6">
+                    <h:inputText value="#{storySearchMB.text}" class="form-control mr-sm-2" type="search" placeholder="Search stories" aria-label="Search" required="true" />
+
+                </div>
+                <div class="col-6">
+                    <b:commandButton  class="btn btn-outline-info my-2 my-sm-0" value="Search" action="#{storySearchMB.searchByText()}">
+                        <i class="bi bi-search"></i>
+                    </b:commandButton>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</nav>
+</body>
+</html>

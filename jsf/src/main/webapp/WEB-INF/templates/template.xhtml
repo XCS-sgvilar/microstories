@@ -6,15 +6,19 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
 
-            <ui:include src="header.xhtml"/>
+<ui:include src="header.xhtml"/>
 <h:body>
+    <ui:include src="nav.xhtml"/>
     <b:container layout="fluid">
-
         <b:row>
             <ui:insert name="mostViewed"/>
         </b:row>
         <b:row>
             <ui:insert name="mostRecent"/>
+        </b:row>
+
+        <b:row>
+            <ui:insert name="findStories"/>
         </b:row>
     </b:container>
 </h:body>
