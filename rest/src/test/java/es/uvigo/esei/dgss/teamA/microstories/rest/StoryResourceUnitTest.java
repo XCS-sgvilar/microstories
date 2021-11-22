@@ -14,6 +14,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
+import java.util.Collections;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
@@ -25,6 +26,7 @@ import static org.easymock.EasyMock.expect;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(EasyMockRunner.class)
 public class StoryResourceUnitTest extends EasyMockSupport {
@@ -64,11 +66,10 @@ public class StoryResourceUnitTest extends EasyMockSupport {
     @Test
     public void testGetLatestStoriesLessThanSix(){
         final List<Story> stories = asList(stories()).subList(0,3);
-        //TODO: como limitar a menos de seis relatos en vez de cien??
         expect(facade.findLastStories()).andReturn(stories);
 
         replayAll();
-        //??
+
         final Response response = resource.getLastestStories();
 
         assertThat(response, hasOkStatus());
@@ -104,5 +105,47 @@ public class StoryResourceUnitTest extends EasyMockSupport {
         resource.get(id);
     }
 
+    @Test
+    public void testSearchByText(){
+//        La idea es obtener una lista con historias con dicho texto en el titulo o en el contenido
+        final List<Story> stories = storiesOf(existentContentFragment(),0,10);
 
+        expect(facade.findStoriesByText(existentContentFragment(),null,null))
+                .andReturn(stories); //Revisar cuantas devuelve
+        replayAll();
+
+        final Response response = resource.searchByText(existentContentFragment(),null,null);
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
+        assertThat((List<Story>)response.getEntity(), containsStorysInOrder(stories));
+    }
+
+    @Test
+    public void testSearchByTextWithParams(){
+        final List<Story> stories = storiesOf(existentContentFragment(),1,6);
+
+        expect(facade.findStoriesByText(existentContentFragment(),1,6))
+                .andReturn(stories); //Revisar cuantas devuelve
+        replayAll();
+
+        final Response response = resource.searchByText(existentContentFragment(),1,6);
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
+        assertThat((List<Story>)response.getEntity(), containsStorysInOrder(stories));
+    }
+
+    @Test
+    public void testSearchByTextNoResult(){
+
+        expect(facade.findStoriesByText(nonExistentContentFragment(),null,null))
+                .andReturn(Collections.EMPTY_LIST); //Revisar cuantas devuelve
+        replayAll();
+
+        final Response response = resource.searchByText(nonExistentContentFragment(),null,null);
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(String.class)));
+    }
 }

@@ -15,6 +15,8 @@ public class StoryDataset {
     public static final String NON_EXISTENT_TITLE = "TeamA";
     public static final int EXISTENT_ID = 1;
     public static final int NON_EXISTENT_ID = 1001;
+    public static final String EXISTENT_CONTENT_FRAGMENT="A";
+    public static final String NON_EXISTENT_CONTENT_FRAGMENT="Yeah perdonen kamekameha";
 
     public static Story[] stories(String... logins) {
         final Set<String> loginSet = stream(logins).collect(toSet());
@@ -194,16 +196,19 @@ public class StoryDataset {
     }
 
     public static int existentId() {
-        return 1;
+        return EXISTENT_ID;
     }
 
     public static int nonExistentId() {
-        return 1001;
+        return NON_EXISTENT_ID;
     }
 
     public static Story existentStory() {
         return storyWithId(existentId());
     }
+    public static String existentContentFragment(){ return EXISTENT_CONTENT_FRAGMENT;}
+    public static String nonExistentContentFragment(){ return NON_EXISTENT_CONTENT_FRAGMENT;}
+
 
 
 }

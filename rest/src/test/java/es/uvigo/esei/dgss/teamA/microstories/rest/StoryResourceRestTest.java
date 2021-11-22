@@ -31,6 +31,13 @@ import static org.junit.Assert.assertThat;
 @RunWith(Arquillian.class)
 public class StoryResourceRestTest {
     private final static String BASE_PATH = "api/microstory/";
+    private final static String BASE_PATH_ADD_PARAMS = "api/microstory?";
+    private final static String CONTAINS_PARAM_PATH ="contains=";
+    private final static String ADD_PARAM_CHAR ="&";
+    private final static String PAGE_PARAM_PATH ="page=";
+    private final static String MAX_ITEMS_PARAM_PATH ="maxItems=";
+//    private final static String PAGE_PARAM = PAGE_PARAM_PATH + "1";
+//    private final static String MAX_ITEMS_PARAM = MAX_ITEMS_PARAM_PATH + "20";
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -136,5 +143,40 @@ public class StoryResourceRestTest {
     })
     public void afterGetNonExistent() {}
 
+    @Test
+    @InSequence(10)
+    @UsingDataSet("stories.xml")
+    @Cleanup(phase = TestExecutionPhase.NONE)
+    public void beforeSearchByText() {}
+
+    @Test
+    @InSequence(11)
+    @RunAsClient
+    public void testSearchByText(
+            @ArquillianResteasyResource(BASE_PATH_ADD_PARAMS + CONTAINS_PARAM_PATH + EXISTENT_CONTENT_FRAGMENT)
+                    ResteasyWebTarget webTarget
+    ) throws Exception {
+        // Asumimos una ruta tipo /api/microstory?contains={text}
+        // Test busqueda por contenido sin especificar parametros opcionales
+        int start = 0;
+        int end = 10;
+        final Response response = webTarget.request().get();
+        System.out.println(webTarget.request());
+        System.out.println(response.getStatus());
+
+        assertThat(response, hasOkStatus());
+
+        final List<Story> list = ListStoryType.readEntity(response);
+
+        assertThat(list, containsStorysInOrder(storiesOf(EXISTENT_CONTENT_FRAGMENT, start, end)));
+    }
+
+    @Test
+    @InSequence(12)
+    @ShouldMatchDataSet("stories.xml")
+    @CleanupUsingScript({
+            "cleanup.sql", "cleanup-autoincrement.sql"
+    })
+    public void afterSearchByText() {}
 
 }

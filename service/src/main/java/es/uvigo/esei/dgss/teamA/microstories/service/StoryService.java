@@ -19,6 +19,7 @@ import java.util.List;
 public class StoryService {
     private static final Integer PAGE = 0;
     private static final Integer SIZE = 10;
+    private static final Integer MAX_SIZE = 100;
     @PersistenceContext
     private EntityManager em;
 
@@ -39,7 +40,11 @@ public class StoryService {
         if(text == null){
             throw new IllegalArgumentException();
         }
-        final TypedQuery<Story> query = em.createQuery("SELECT s FROM Story s WHERE s.title LIKE concat('%', ?1,'%') or s.content LIKE concat('%', ?1,'%') ORDER BY s.date DESC, s.id", Story.class).setFirstResult(getStartPagination(page, size)).setMaxResults(checkSize(size));
+        final TypedQuery<Story> query = em.createQuery(
+                "SELECT s FROM Story s " +
+                        "WHERE s.title LIKE concat('%', ?1,'%') or s.content LIKE concat('%', ?1,'%') " +
+                        "ORDER BY s.date DESC, s.id", Story.class)
+                        .setFirstResult(getStartPagination(page, size)).setMaxResults(checkSize(size));
         query.setParameter(1, text);
         return query.getResultList();
     }
@@ -51,7 +56,7 @@ public class StoryService {
     }
 
     private Integer checkSize(Integer size) {
-        return (size == null || size < PAGE) ? SIZE : size;
+        return (size == null || size < PAGE) ? SIZE : Math.min(size, MAX_SIZE);
     }
 
     private Integer checkPage(Integer page) {
