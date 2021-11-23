@@ -1,12 +1,15 @@
 package es.uvigo.esei.dgss.teamA.microstories.service;
 
+import es.uvigo.esei.dgss.teamA.microstories.entities.Genre;
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
+import es.uvigo.esei.dgss.teamA.microstories.entities.Theme;
 
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +47,23 @@ public class StoryService {
                                 "ORDER BY s.date DESC, s.id", Story.class)
                 .setFirstResult(getStartPagination(page, size)).setMaxResults(checkSize(size));
         query.setParameter(1, text);
+        return query.getResultList();
+    }
+
+    @PermitAll
+    public List<Story> findStories(final Genre genre, Theme theme, Date initDate, Date endDate, Integer page, Integer size) throws IllegalArgumentException {
+        final TypedQuery<Story> query = em.createQuery("SELECT s FROM Story s " +
+                        "WHERE (:genre is null OR s.genre = :genre) " +
+                        "and (:theme is null or s.mainTheme = :theme or s.secondaryTheme = :theme) " +
+                        "and (:initDate is null or s.date >= :initDate)" +
+                        "and (:endDate is null or s.date <= :endDate) " +
+                        "ORDER BY s.date DESC, s.id", Story.class)
+                .setFirstResult(getStartPagination(page, size))
+                .setMaxResults(checkSize(size));
+        query.setParameter("genre", genre);
+        query.setParameter("theme", theme);
+        query.setParameter("initDate", initDate);
+        query.setParameter("endDate", endDate);
         return query.getResultList();
     }
 
