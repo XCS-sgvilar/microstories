@@ -5,7 +5,8 @@
 	xmlns:em="http://xmlns.jcp.org/jsf/composite/emcomp"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<ui:include src="./WEB-INF/templates/header.xhtml" />
+<ui:composition template="./WEB-INF/templates/template.xhtml">
+<ui:define name="storyView">
 <h:body>
 
 	<div class="card mx-auto mt-3" style="width: 90%;">
@@ -28,5 +29,7 @@
 	</div>
 
 </h:body>
+</ui:define>
+</ui:composition>
 
 </html>
