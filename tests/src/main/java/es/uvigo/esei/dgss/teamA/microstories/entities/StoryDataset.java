@@ -168,13 +168,6 @@ public class StoryDataset {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public static Story publicatedstories() {
-        return stream(stories())
-                .filter(Story::getPublicated)
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
-    }
-
     public static List<Story> recentStories() {
         return stream(stories())
                 .sorted(Comparator.comparing(Story::getDate).reversed())
