@@ -43,7 +43,8 @@ public class StoryService {
         }
         final TypedQuery<Story> query = em.createQuery(
                         "SELECT s FROM Story s " +
-                                "WHERE s.title LIKE concat('%', ?1,'%') or s.content LIKE concat('%', ?1,'%') " +
+                                "WHERE s.publicated = TRUE " +
+                                "AND (s.title LIKE concat('%', ?1,'%') or s.content LIKE concat('%', ?1,'%')) " +
                                 "ORDER BY s.date DESC, s.id", Story.class)
                 .setFirstResult(getStartPagination(page, size)).setMaxResults(checkSize(size));
         query.setParameter(1, text);

@@ -188,7 +188,7 @@ public class StoryDataset {
         final List<Story> stories = new ArrayList<>();
 
         for (Story story : stories()) {
-            if (story.getTitle().contains(text) || story.getContent().contains(text)) {
+            if (story.getPublicated() && ( story.getTitle().contains(text) || story.getContent().contains(text))) {
                 stories.add(story);
             }
         }

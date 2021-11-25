@@ -151,7 +151,7 @@ public class StoryServiceIntegrationTest {
     public void testFindStoriesByTextEmpty() {
         List<Story> storyList = this.facade.findStoriesByText("", 0, SIZE);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().subList(0, SIZE);
+        final List<Story> recentStories = recentStories().subList(0, SIZE);
 
         Assert.assertNotNull(storyList);
         Assert.assertThat(storyList, hasSize(SIZE));
