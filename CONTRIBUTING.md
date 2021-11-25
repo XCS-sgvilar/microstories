@@ -29,7 +29,7 @@
     * [8.1. Código fuente](#81-código-fuente)
     * [8.2. Control de versiones](#82-control-de-versiones)
     * [8.3. Material adicional](#83-material-adicional)
-
+  * [9. Consideraciones del proyecto](#9-consideraciones-del-proyecto)
 
 ## 1. Empezando
 
@@ -699,3 +699,8 @@ actualiar son:
     un administrador que instale la aplicación, debe poder copiar el fichero de
     configuración correspondiente a su servidor y arrancarla sin problemas,
     habiendo configurado la base de datos previamente.
+
+## 9. Consideraciones del proyecto
+El siguiente listado expone un conjunto de consideraciones referentes al proyecto:
+* **Filtrado de historias publicadas:** Salvo que se especifique de forma explícita, los métodos de la capa de servicio 
+siempre devolverán historias que ya estén publicadas
