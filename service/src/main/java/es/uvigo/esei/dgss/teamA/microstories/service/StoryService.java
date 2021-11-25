@@ -28,7 +28,7 @@ public class StoryService {
 
     @PermitAll
     public List<Story> findLastStories() {
-        return em.createQuery("SELECT s FROM Story s ORDER BY s.date DESC", Story.class).getResultList();
+        return em.createQuery("SELECT s FROM Story s  where s.publicated = TRUE ORDER BY s.date DESC", Story.class).getResultList();
     }
 
     @PermitAll

@@ -170,6 +170,13 @@ public class StoryDataset {
 
     public static List<Story> recentStories() {
         return stream(stories())
+                .filter(Story::getPublicated)
+                .sorted(Comparator.comparing(Story::getDate).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public static List<Story> allStoriesSortedByRecent() {
+        return stream(stories())
                 .sorted(Comparator.comparing(Story::getDate).reversed())
                 .collect(Collectors.toList());
     }
