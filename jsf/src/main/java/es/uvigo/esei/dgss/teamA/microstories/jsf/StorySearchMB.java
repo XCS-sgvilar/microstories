@@ -6,7 +6,9 @@ import es.uvigo.esei.dgss.teamA.microstories.service.StoryService;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 public class StorySearchMB implements Serializable {
 
     private static final int PAGE = 0;
-    private static final int MAX_ITEMS = 10;
+    private static final int MAX_ITEMS = 9;
 
     @EJB
     StoryService storyService;
@@ -24,21 +26,50 @@ public class StorySearchMB implements Serializable {
 
     private String text;
 
+    private int page;
+
     public StorySearchMB(){
 
     }
 
     @PostConstruct
     public void init() {
-
     }
 
     public String searchByText() {
 
         this.findStories = storyService.findStoriesByText(this.text, PAGE, MAX_ITEMS);
 
-        return "WEB-INF/templates/search";
+        this.page = 0;
 
+        return "search";
+
+    }
+
+    public String getPreviousStories() {
+        this.page = this.page - 1;
+        this.findStories = storyService.findStoriesByText(this.text, this.page, MAX_ITEMS);
+
+        return "search";
+    }
+
+    public String getNextStories() {
+        this.page = this.page + 1;
+        this.findStories = storyService.findStoriesByText(this.text, this.page, MAX_ITEMS);
+
+        return "search";
+    }
+
+    public Boolean isPreviousButtonDisabled(){
+        return this.page <= 0;
+    }
+
+    public Boolean isNextButtonDisabled(){
+        return storyService.findStoriesByText(this.text, this.page + 1, MAX_ITEMS).isEmpty();
+    }
+
+    private String getViewId() {
+        return FacesContext.getCurrentInstance().getViewRoot().getViewId();
     }
 
     public String getText() {
@@ -55,5 +86,13 @@ public class StorySearchMB implements Serializable {
 
     public void setFindStories(List<Story> findStories) {
         this.findStories = findStories;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
     }
 }
