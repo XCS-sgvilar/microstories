@@ -54,7 +54,8 @@ public class StoryService {
     @PermitAll
     public List<Story> findStories(final Genre genre, Theme theme, Date initDate, Date endDate, Integer page, Integer size) throws IllegalArgumentException {
         final TypedQuery<Story> query = em.createQuery("SELECT s FROM Story s " +
-                        "WHERE (:genre is null OR s.genre = :genre) " +
+                        "WHERE s.publicated = TRUE " +
+                        "and (:genre is null OR s.genre = :genre) " +
                         "and (:theme is null or s.mainTheme = :theme or s.secondaryTheme = :theme) " +
                         "and (:initDate is null or s.date >= :initDate)" +
                         "and (:endDate is null or s.date <= :endDate) " +

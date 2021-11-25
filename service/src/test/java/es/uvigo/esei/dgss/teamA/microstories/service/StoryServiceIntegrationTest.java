@@ -169,7 +169,7 @@ public class StoryServiceIntegrationTest {
     public void testFindStoriesWithoutFilters() {
         List<Story> storyList = this.facade.findStories(null, null, null, null, null, null);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().subList(0, SIZE);
+        final List<Story> recentStories = recentStories().subList(0, SIZE);
 
         Assert.assertNotNull(storyList);
         Assert.assertThat(storyList, hasSize(SIZE));
@@ -181,7 +181,7 @@ public class StoryServiceIntegrationTest {
     public void testFindStoriesFilterByGenre() {
         List<Story> storyList = this.facade.findStories(Genre.STORY, null, null, null, null, null);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().stream()
+        final List<Story> recentStories = recentStories().stream()
                 .filter(i -> i.getGenre().equals(Genre.STORY))
                 .limit(SIZE)
                 .collect(Collectors.toList());
@@ -192,11 +192,11 @@ public class StoryServiceIntegrationTest {
     @Test
     @ShouldMatchDataSet("stories.xml")
     public void testFindStoriesFilterByTheme() {
-        List<Story> storyList = this.facade.findStories(null, Theme.ADVENTURE, null, null, null, null);
+        List<Story> storyList = this.facade.findStories(null, Theme.HORROR, null, null, null, null);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().stream()
-                .filter(i -> i.getMainTheme().equals(Theme.ADVENTURE) ||
-                        (i.getSecondaryTheme() != null && i.getSecondaryTheme().equals(Theme.ADVENTURE)))
+        final List<Story> recentStories = recentStories().stream()
+                .filter(i -> i.getMainTheme().equals(Theme.HORROR) ||
+                        (i.getSecondaryTheme() != null && i.getSecondaryTheme().equals(Theme.HORROR)))
                 .limit(SIZE)
                 .collect(Collectors.toList());
 
@@ -212,7 +212,7 @@ public class StoryServiceIntegrationTest {
 
         List<Story> storyList = this.facade.findStories(null, null, initDate, null, null, null);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().stream()
+        final List<Story> recentStories = recentStories().stream()
                 .filter(i -> i.getDate().after(initDate))
                 .limit(SIZE)
                 .collect(Collectors.toList());
@@ -229,7 +229,7 @@ public class StoryServiceIntegrationTest {
 
         List<Story> storyList = this.facade.findStories(null, null, null, endDate, null, null);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().stream()
+        final List<Story> recentStories = recentStories().stream()
                 .filter(i -> i.getDate().before(endDate))
                 .limit(SIZE)
                 .collect(Collectors.toList());
@@ -248,7 +248,7 @@ public class StoryServiceIntegrationTest {
 
         List<Story> storyList = this.facade.findStories(null, null, initDate, endDate, null, null);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().stream()
+        final List<Story> recentStories = recentStories().stream()
                 .filter(i -> i.getDate().after(initDate))
                 .filter(i -> i.getDate().before(endDate))
                 .limit(SIZE)
@@ -282,7 +282,7 @@ public class StoryServiceIntegrationTest {
         Date endDate = calendar.getTime();
         List<Story> storyList = this.facade.findStories(Genre.STORY, Theme.HORROR, initDate, endDate, null, null);
 
-        final List<Story> recentStories = allStoriesSortedByRecent().stream()
+        final List<Story> recentStories = recentStories().stream()
                 .filter(i -> i.getGenre().equals(Genre.STORY))
                 .filter(i -> i.getMainTheme().equals(Theme.HORROR) ||
                         (i.getSecondaryTheme() != null && i.getSecondaryTheme().equals(Theme.HORROR)))
