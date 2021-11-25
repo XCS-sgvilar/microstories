@@ -2,6 +2,7 @@ create table Story
 (
     id int auto_increment
         primary key,
+    author varchar(100) not null,
     content varchar(1000) not null,
     date datetime not null,
     genre varchar(9) not null,

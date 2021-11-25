@@ -12,7 +12,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class StoryTest {
-
+	
+	private String author;
 	private Date date;
 	private String title;
 	private String content;
@@ -35,6 +36,7 @@ public class StoryTest {
 	@Before
 	public void setUp() throws Exception {
 		this.date = new Date();
+		this.author ="Yudkowsky";
 		this.title = "Story 1";
 		this.content = "This is the content of story 1";
 		this.genre = Genre.STORY;
@@ -58,7 +60,7 @@ public class StoryTest {
 		final String[] titles = { title, "A", StringUtils.repeat("A", 80)};
 
 		for (String title : titles) {
-			final Story story = new Story(date, title, content, genre, mainTheme, secondaryTheme, publicated);
+			final Story story = new Story(author,date, title, content, genre, mainTheme, secondaryTheme, publicated);
 
 			assertThat(story.getDate(), is(equalTo(date)));
 			assertThat(story.getTitle(), is(equalTo(title)));
@@ -72,63 +74,69 @@ public class StoryTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testStoryTitleNull() {
-		new Story(this.date, null, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author, this.date, null, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testStoryTitleTooLong() {
-		new Story(this.date, repeat('A', 81), this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author, this.date, repeat('A', 81), this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testStoryTitleTooShort() {
-		new Story(this.date, "", this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author,this.date, "", this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 
 	@Test(expected = NullPointerException.class)
 	public void testStoryContentNull() {
-		new Story(this.date, this.title, null, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author,this.date, this.title, null, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testStoryContentTooLong() {
-		new Story(this.date, this.title , repeat('A', 1001), this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author,this.date, this.title , repeat('A', 1001), this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testStoryContentTooShort() {
-		new Story(this.date, this.title, "", this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author,this.date, this.title, "", this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testStoryDateNull() {
-		new Story(null, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author,null, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testStoryGenreNull() {
-		new Story(this.date, this.title, this.content, null, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author,this.date, this.title, this.content, null, this.mainTheme, this.secondaryTheme, this.publicated);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testStoryAuthorNull() {
+		new Story(null,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testStoryThemeNull() {
-		new Story(this.date, this.title, this.content, this.genre, null, this.secondaryTheme, this.publicated);
+		new Story(this.author,this.date, this.title, this.content, this.genre, null, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testStoryPublicatedNull() {
-		new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, null);
+		new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testStoryDateAfterCurrent() {
-		new Story(futureDate, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		new Story(this.author,futureDate, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
+	
 
 	@Test
 	public void testSetTitle() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setTitle(newTitle);
 
@@ -137,14 +145,14 @@ public class StoryTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testSetTitleNull() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setTitle(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetTitleTooShort() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setTitle("");
 	}
@@ -152,14 +160,14 @@ public class StoryTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetTitleLong() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setTitle(repeat('A', 81));
 	}
 
 	@Test
 	public void testSetContent() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setContent(newContent);
 
@@ -168,28 +176,28 @@ public class StoryTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testSetContentNull() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setContent(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetContentTooShort() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setContent("");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetContentLong() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme,  this.secondaryTheme,this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme,  this.secondaryTheme,this.publicated);
 
 		story.setContent(repeat('A', 1001));
 	}
 
 	@Test
 	public void testSetGenre() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setGenre(newGenre);
 
@@ -198,14 +206,14 @@ public class StoryTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testSetGenreNull() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setGenre(null);
 	}
 
 	@Test
 	public void testSetTheme() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setMainTheme(newMainTheme);
 
@@ -214,21 +222,21 @@ public class StoryTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testSetThemeNull() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setMainTheme(null);
 	}
 
 	@Test
 	public void testSetSecondaryTheme() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.mainTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.mainTheme, this.publicated);
 
 		assertThat(story.getSecondaryTheme(), is(equalTo(null)));
 	}
 
 	@Test
 	public void testSetDate() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setDate(newDate);
 
@@ -237,21 +245,21 @@ public class StoryTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testSetDateNull() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setDate(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetDateAfterCurrent() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 
 		story.setDate(futureDate);
 	}
 
 	@Test
 	public void testSetPublicated() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme,this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme,this.secondaryTheme, this.publicated);
 
 		story.setPublicated(newPublicated);
 
@@ -260,7 +268,7 @@ public class StoryTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testSetPublicatedNull() {
-		final Story story = new Story(this.date, this.title, this.content, this.genre, this.mainTheme,this.secondaryTheme, this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme,this.secondaryTheme, this.publicated);
 
 		story.setPublicated(null);
 	}

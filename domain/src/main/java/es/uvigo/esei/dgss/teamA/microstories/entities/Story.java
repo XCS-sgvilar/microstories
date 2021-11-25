@@ -48,13 +48,17 @@ public class Story implements Serializable {
 
     @Column(nullable = false)
     private Boolean publicated;
+    
+    private String author;
+    
 
     public Story() {
 
     }
 
-    public Story(int id, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
+    public Story(int id,String author, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
         this.id = id;
+        this.setAuthor(author);
         this.setDate(date);
         this.setTitle(title);
         this.setContent(content);
@@ -64,8 +68,11 @@ public class Story implements Serializable {
         this.setPublicated(publicated);
     }
 
-    public Story(Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
-        this.setDate(date);
+  
+
+	public Story(String author,Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
+		this.setAuthor(author);
+		this.setDate(date);
         this.setTitle(title);
         this.setContent(content);
         this.setGenre(genre);
@@ -77,6 +84,14 @@ public class Story implements Serializable {
     public int getId() {
         return id;
     }
+   public String getAuthor() {
+	return author;
+}
+    
+    private void setAuthor(String author) {
+    	 requireNonNull(author, "author can't be null");
+  		this.author=author;
+  	}
 
     public Date getDate() {
         return new Date(date.getTime());
@@ -104,6 +119,7 @@ public class Story implements Serializable {
     public String getContent() {
         return content;
     }
+    
 
     public void setContent(String content) {
         requireNonNull(content, "content can't be null");
@@ -152,6 +168,7 @@ public class Story implements Serializable {
     public String toString() {
         return "Story{" +
                 "id=" + id +
+                ", author=" + author +
                 ", date=" + date +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
