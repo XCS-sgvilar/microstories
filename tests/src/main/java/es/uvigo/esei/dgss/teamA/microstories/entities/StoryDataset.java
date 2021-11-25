@@ -1,10 +1,13 @@
 package es.uvigo.esei.dgss.teamA.microstories.entities;
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.*;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
@@ -15,8 +18,8 @@ public class StoryDataset {
     public static final String NON_EXISTENT_TITLE = "TeamA";
     public static final int EXISTENT_ID = 1;
     public static final int NON_EXISTENT_ID = 1001;
-    public static final String EXISTENT_CONTENT_FRAGMENT="A";
-    public static final String NON_EXISTENT_CONTENT_FRAGMENT="Yeah perdonen kamekameha";
+    public static final String EXISTENT_CONTENT_FRAGMENT = "A";
+    public static final String NON_EXISTENT_CONTENT_FRAGMENT = "Yeah perdonen kamekameha";
 
     public static Story[] stories(String... logins) {
         final Set<String> loginSet = stream(logins).collect(toSet());
@@ -206,9 +209,14 @@ public class StoryDataset {
     public static Story existentStory() {
         return storyWithId(existentId());
     }
-    public static String existentContentFragment(){ return EXISTENT_CONTENT_FRAGMENT;}
-    public static String nonExistentContentFragment(){ return NON_EXISTENT_CONTENT_FRAGMENT;}
 
+    public static String existentContentFragment() {
+        return EXISTENT_CONTENT_FRAGMENT;
+    }
+
+    public static String nonExistentContentFragment() {
+        return NON_EXISTENT_CONTENT_FRAGMENT;
+    }
 
 
 }
