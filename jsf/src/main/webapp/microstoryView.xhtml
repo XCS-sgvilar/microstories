@@ -13,8 +13,7 @@
 
 		<div class="card-header">
 			<h:outputText class="card-title" value="#{storyViewMB.story.title}" />
-			<h:outputText class="badge bg-success" value="Published #{storyViewMB.story.date}" rendered="#{storyViewMB.story.publicated}">Published</h:outputText>
-			<h:outputText class="badge bg-danger" value="Unpublished" rendered="#{!storyViewMB.story.publicated}">Unpublished</h:outputText>
+			<h:outputText class="badge bg-success" value="Published #{storyViewMB.story.date}">Published in</h:outputText>
 		</div>
 			<div class="card-header">
 			<h:outputText  value="Author: #{storyViewMB.story.author}"/>
