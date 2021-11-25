@@ -86,9 +86,9 @@ public class StoryServiceIntegrationTest {
     @ShouldMatchDataSet("stories.xml")
     public void testFindStoriesByTextSuccessfully() {
 
-        final Integer page = 1;
-        final Integer start = page * SIZE;
-        final Integer end = SIZE * (page + 1);
+        final int page = 1;
+        final int start = page * SIZE;
+        final int end = SIZE * (page + 1);
         final List<Story> recentStories = storiesOf(TEXT, start, end);
 
         List<Story> storyList = this.facade.findStoriesByText(TEXT, page, SIZE);
