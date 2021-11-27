@@ -35,6 +35,7 @@ public class StoryTest {
 	private Theme newMainTheme;
 	private Theme newSecondaryTheme;
 	private Boolean newPublicated;
+
 	private List<Date> newVisitDate;
 
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
@@ -201,7 +202,7 @@ public class StoryTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetContentLong() {
-		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme,  this.secondaryTheme,this.publicated);
+		final Story story = new Story(this.author, this.date, this.title, this.content, this.genre, this.mainTheme,  this.secondaryTheme,this.publicated);
 
 		story.setContent(repeat('A', 1001));
 	}

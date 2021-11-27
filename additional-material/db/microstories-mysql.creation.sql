@@ -1,3 +1,9 @@
+create table User
+(
+    login varchar(100) not null  primary key,
+    password varchar(100) not null
+);
+
 create table Story
 (
     id int auto_increment
@@ -12,17 +18,11 @@ create table Story
     title varchar(80) not null,
    FOREIGN KEY (author) REFERENCES User(login)
 );
-create table User
-(
-    login varchar(100) not null  primary key,
-    password varchar(100) not null
-);
 
-create table visit_date
+create table VisitDate
 (
-    story_id int not null,
-    visit_date datetime null,
+    storyId int not null,
+    visitDate datetime null,
     constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
-        foreign key (id) references Story(id)
+        foreign key (storyId) references Story(id)
 );
-

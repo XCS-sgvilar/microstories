@@ -39,10 +39,10 @@ public class StoryService {
         if (text == null) {
             throw new IllegalArgumentException();
         }
-
         System.out.println("QUERY");
         System.out.println(getStartPagination(page, size));
         System.out.println(checkSize(size));
+
         final TypedQuery<Story> query = em.createQuery(
                         "SELECT s FROM Story s " +
                                 "WHERE s.publicated = TRUE " +

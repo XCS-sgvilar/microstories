@@ -1,7 +1,5 @@
 package es.uvigo.esei.dgss.teamA.microstories.entities;
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.*;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -136,7 +134,6 @@ public class StoryDataset {
                     new Story(99, UserDataset.userWithLogin("Yudkowsky"),formatter.parse("2014-07-01 01:01:01"), "orci. Ut sagittis lobortis", "est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu", Genre.NANOSTORY, Theme.ADVENTURE, Theme.HISTORIC, false),
                     new Story(100,UserDataset.userWithLogin("Greg Egan"),formatter.parse("2014-07-01 01:01:01"), "Curabitur vel lectus. Cum", "est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu", Genre.POETRY, Theme.ADVENTURE, Theme.HISTORIC, false),
             };
-
 
             addVisitDateToStories(formatter, stories);
 

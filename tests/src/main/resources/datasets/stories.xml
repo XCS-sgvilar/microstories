@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <dataset>
-	<User login="JK Rowling" password="JK RowlingPasswd"/>
-	<User login="Scott Aaronson" password="Scott AaronsonPasswd"/>
-	<User login="Victor" password="Victor"/>
-	<User login="Brandon Sanderson" password="Brandon SandersonPasswd"/>
-	<User login="Santiago" password="SantiagoPasswd"/>
-	<User login="Ines" password="InesPasswd"/>
-	<User login="Bruno" password="BrunoPasswd"/>
-	<User login="Yudkowsky" password="I am a potato 927"/>
-	<User login="Greg Egan" password="Greg EganPsswd"/>
+	<USER login="JK Rowling" password="JK RowlingPasswd"/>
+	<USER login="Scott Aaronson" password="Scott AaronsonPasswd"/>
+	<USER login="Victor" password="Victor"/>
+	<USER login="Brandon Sanderson" password="Brandon SandersonPasswd"/>
+	<USER login="Santiago" password="SantiagoPasswd"/>
+	<USER login="Ines" password="InesPasswd"/>
+	<USER login="Bruno" password="BrunoPasswd"/>
+	<USER login="Yudkowsky" password="I am a potato 927"/>
+	<USER login="Greg Egan" password="Greg EganPsswd"/>
     <STORY id="1"  author="JK Rowling" date="2000-02-01 01:01:01" title="Aliquam ultrices iaculis odio." content="eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu," genre="NANOSTORY" mainTheme="ROMANCE" secondaryTheme="HORROR" publicated="true" />
     <STORY id="2"  author="JK Rowling" date="2000-02-01 01:01:01" title="Integer aliquam adipiscing lacus." content="eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu," genre="POETRY" mainTheme="CHILD" secondaryTheme="HORROR" publicated="true" />
     <STORY id="3"  author="JK Rowling" date="2000-02-01 01:01:01" title="Aliquam ultrices iaculis odio." content="eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu," genre="STORY" mainTheme="HISTORIC" secondaryTheme="HORROR" publicated="true" />
@@ -110,24 +110,22 @@
     <STORY id="98" author="Yudkowsky" date="2014-07-01 01:01:01" title="Nulla semper tellus id" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="POETRY" mainTheme="CHILD" secondaryTheme="HISTORIC" publicated="false" />
     <STORY id="99" author="Yudkowsky" date="2014-07-01 01:01:01" title="orci. Ut sagittis lobortis" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="NANOSTORY" mainTheme="ADVENTURE" secondaryTheme="HISTORIC" publicated="false" />
     <STORY id="100" author="Greg Egan" date="2014-07-01 01:01:01" title="Curabitur vel lectus. Cum" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="POETRY" mainTheme="ADVENTURE" secondaryTheme="HISTORIC" publicated="false" />
-
-    <VISIT_DATE story_id="1" visit_date="2000-02-01 01:01:01" />
-    <VISIT_DATE story_id="1" visit_date="2000-02-03 01:01:01" />
-    <VISIT_DATE story_id="1" visit_date="2000-02-09 01:01:01" />
-    <VISIT_DATE story_id="2" visit_date="2000-02-01 01:01:01" />
-    <VISIT_DATE story_id="3" visit_date="2000-02-11 01:01:01" />
-    <VISIT_DATE story_id="3" visit_date="2000-02-13 01:01:01" />
-    <VISIT_DATE story_id="4" visit_date="2000-02-11 01:01:01" />
-    <VISIT_DATE story_id="4" visit_date="2000-02-13 01:01:01" />
-    <VISIT_DATE story_id="5" visit_date="2000-02-16 01:01:01" />
-    <VISIT_DATE story_id="5" visit_date="2000-02-03 01:01:01" />
-    <VISIT_DATE story_id="6" visit_date="2000-02-01 01:01:01" />
-    <VISIT_DATE story_id="7" visit_date="2000-02-01 01:01:01" />
-    <VISIT_DATE story_id="7" visit_date="2000-02-18 01:01:01" />
-    <VISIT_DATE story_id="8" visit_date="2000-02-01 01:01:01" />
-    <VISIT_DATE story_id="8" visit_date="2000-02-03 01:01:01" />
-    <VISIT_DATE story_id="8" visit_date="2000-02-09 01:01:01" />
-    <VISIT_DATE story_id="9" visit_date="2000-02-19 01:01:01" />
-    <VISIT_DATE story_id="10" visit_date="2000-02-19 01:01:01" />
-
+    <VISITDATE storyId="1" visitDate="2000-02-01 01:01:01" />
+    <VISITDATE storyId="1" visitDate="2000-02-03 01:01:01" />
+    <VISITDATE storyId="1" visitDate="2000-02-09 01:01:01" />
+    <VISITDATE storyId="2" visitDate="2000-02-01 01:01:01" />
+    <VISITDATE storyId="3" visitDate="2000-02-11 01:01:01" />
+    <VISITDATE storyId="3" visitDate="2000-02-13 01:01:01" />
+    <VISITDATE storyId="4" visitDate="2000-02-11 01:01:01" />
+    <VISITDATE storyId="4" visitDate="2000-02-13 01:01:01" />
+    <VISITDATE storyId="5" visitDate="2000-02-16 01:01:01" />
+    <VISITDATE storyId="5" visitDate="2000-02-03 01:01:01" />
+    <VISITDATE storyId="6" visitDate="2000-02-01 01:01:01" />
+    <VISITDATE storyId="7" visitDate="2000-02-01 01:01:01" />
+    <VISITDATE storyId="7" visitDate="2000-02-18 01:01:01" />
+    <VISITDATE storyId="8" visitDate="2000-02-01 01:01:01" />
+    <VISITDATE storyId="8" visitDate="2000-02-03 01:01:01" />
+    <VISITDATE storyId="8" visitDate="2000-02-09 01:01:01" />
+    <VISITDATE storyId="9" visitDate="2000-02-19 01:01:01" />
+    <VISITDATE storyId="10" visitDate="2000-02-19 01:01:01" />
 </dataset>

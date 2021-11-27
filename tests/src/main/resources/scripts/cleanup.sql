@@ -1,2 +1,2 @@
-DELETE FROM visit_date;
+DELETE FROM VisitDate;
 DELETE FROM Story;

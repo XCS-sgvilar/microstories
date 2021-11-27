@@ -1,4 +1,4 @@
 
-drop table visit_date;
+drop table VisitDate
 drop table Story
 drop table User

@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -56,17 +54,17 @@ public class Story implements Serializable {
 
     @Column(nullable = false)
     private Boolean publicated;
-    
+
     @ManyToOne
     @JoinColumn(name="author", nullable=false)
     private User author;
 
     @ElementCollection
     @CollectionTable(
-            name="visit_date",
-            joinColumns = @JoinColumn(name="story_id")
+            name="VisitDate",
+            joinColumns = @JoinColumn(name="storyId")
     )
-    @Column(name = "visit_date")
+    @Column(name = "visitDate")
     private List<Date> visitDate;
 
     public Story() {
@@ -84,8 +82,6 @@ public class Story implements Serializable {
         this.setSecondaryTheme(secondaryTheme);
         this.setPublicated(publicated);
     }
-
-  
 
 	public Story(User author,Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
 		this.setAuthor(author);

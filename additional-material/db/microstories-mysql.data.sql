@@ -1,16 +1,4 @@
 
-insert into User (login,password)
-values ("JK Rowling" ,"JK RowlingPasswd"),
-("Scott Aaronson" ,"Scott AaronsonPasswd")
-("Victor" ,"VictorPasswd")
-("Brandon Sanderson" ,"Brandon SandersonPasswd")
-("Santiago" ,"SantiagoPasswd")
-("Ines" ,"InesPasswd")
-("Bruno" ,"BrunoPasswd")
-("Yudkowsky" ,"I am a potato 927")
-("Greg Egan" ,"Greg EganPsswd")
-
-
 insert into Story (id,author, date, title,  content,  genre, mainTheme, secondaryTheme, publicated)
 values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.', 'eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'NANOSTORY', 'ROMANCE', 'HORROR', true),
         (2,'JK Rowling', '2000-02-01 01:01:01', 'Integer aliquam adipiscing lacus.', 'eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'POETRY', 'CHILD', 'HORROR', true),
@@ -113,7 +101,7 @@ values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.
         (99,'Yudkowsky', '2014-07-01 01:01:01', 'orci. Ut sagittis lobortis', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'NANOSTORY', 'ADVENTURE', 'HISTORIC', false),
         (100,'Greg Egan','2014-07-01 01:01:01', 'Curabitur vel lectus. Cum', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'ADVENTURE', 'HISTORIC', false)
 
-insert into visit_date(story_id, visit_date)
+insert into VisitDate(storyId, visitDate)
 values  (1, '2000-02-01 01:01:01'),
         (1, '2000-02-03 01:01:01'),
         (1, '2000-02-09 01:01:01'),
