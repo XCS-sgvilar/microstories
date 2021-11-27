@@ -1,20 +1,21 @@
 package es.uvigo.esei.dgss.teamA.microstories.rest;
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.Genre;
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
-import es.uvigo.esei.dgss.teamA.microstories.entities.Theme;
 import es.uvigo.esei.dgss.teamA.microstories.service.StoryService;
 
-
 import javax.ejb.EJB;
-import javax.ejb.EJBAccessException;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Path("microstory")
@@ -55,14 +56,14 @@ public class StoryResource {
     public Response searchByText(
             @NotNull @QueryParam("contains") String contains,
             @DefaultValue("0") @QueryParam("page") Integer page,
-            @DefaultValue("10") @QueryParam("maxItems") Integer maxItems){
+            @DefaultValue("10") @QueryParam("maxItems") Integer maxItems) {
         //http://localhost:8080/microstories-2122-teamA/rest/api/microstory?contains=A
         List<Story> stories = new ArrayList<>();
-        if ((page == null || page >=0) && (maxItems == null || maxItems >=0)){
-            stories = storyService.findStoriesByText(contains, page, maxItems); //  maxItems<=100 ??
+        if ((page == null || page >= 0) && (maxItems == null || maxItems >= 0)) {
+            stories = storyService.findStoriesByText(contains, page, maxItems);
         }
 
-        if(stories.isEmpty()){
+        if (stories.isEmpty()) {
             return Response.ok("No entries").build();
         }
         return Response.ok(stories).build();
