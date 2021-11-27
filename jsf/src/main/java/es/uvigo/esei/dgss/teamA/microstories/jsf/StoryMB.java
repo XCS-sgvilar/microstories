@@ -20,7 +20,6 @@ public class StoryMB implements Serializable {
 
     List<Story> recentStories;
 
-
     public StoryMB() {
     }
 
@@ -51,5 +50,13 @@ public class StoryMB implements Serializable {
 
     public void setRecentStories(List<Story> recentStories) {
         this.recentStories = recentStories;
+    }
+
+    public StoryService getStoryService() {
+        return storyService;
+    }
+
+    public void setStoryService(StoryService storyService) {
+        this.storyService = storyService;
     }
 }

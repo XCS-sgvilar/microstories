@@ -82,6 +82,4 @@ public class StoryService {
     private Integer checkPage(Integer page) {
         return (page == null || page < PAGE) ? PAGE : page;
     }
-
-
 }

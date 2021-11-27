@@ -12,3 +12,11 @@ create table Story
     title varchar(80) not null
 );
 
+create table visit_date
+(
+    id int not null,
+    date datetime null,
+    constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
+        foreign key (id) references Story(id)
+);
+
