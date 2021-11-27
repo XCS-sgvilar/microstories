@@ -2,12 +2,7 @@ package es.uvigo.esei.dgss.teamA.microstories.entities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
@@ -20,6 +15,11 @@ public class StoryDataset {
     public static final int NON_EXISTENT_ID = 1001;
     public static final String EXISTENT_CONTENT_FRAGMENT = "A";
     public static final String NON_EXISTENT_CONTENT_FRAGMENT = "Yeah perdonen kamekameha";
+    public static final Theme EXISTENT_THEME = Theme.HORROR;
+    public static final Genre EXISTENT_GENRE = Genre.POETRY;
+    public static final String EXISTENT_THEME_STRING = "HORROR";
+    public static final String EXISTENT_GENRE_STRING = "POETRY";
+    public static final String EXISTENT_PUBLICATED_STRING = "THIS_YEAR";
 
     public static Story[] stories(String... logins) {
         final Set<String> loginSet = stream(logins).collect(toSet());
@@ -198,6 +198,24 @@ public class StoryDataset {
         return stories.subList(Math.min(stories.size(), start), Math.min(stories.size(), end));
     }
 
+    public static List<Story> storiesSearch(Genre genre, Theme theme, Date initDate, Date endDate, int start, int end) {
+        final List<Story> stories = new ArrayList<>();
+
+        for (Story story : stories()) {
+            if ((genre == null || story.getGenre() == genre ) &&
+                    (theme == null || story.getMainTheme() == theme || story.getSecondaryTheme() == theme) &&
+                    (initDate == null || story.getDate().compareTo(initDate) >= 0) &&
+                    (endDate == null || story.getDate().compareTo(endDate) <= 0) &&
+                    (story.getPublicated() == true)) {
+                stories.add(story);
+            }
+        }
+
+        Collections.sort(stories, Comparator.comparing(Story::getDate).reversed());
+
+        return stories.subList(Math.min(stories.size(), start), Math.min(stories.size(), end));
+    }
+
     public static int existentId() {
         return EXISTENT_ID;
     }
@@ -216,6 +234,14 @@ public class StoryDataset {
 
     public static String nonExistentContentFragment() {
         return NON_EXISTENT_CONTENT_FRAGMENT;
+    }
+
+    public static Theme existentTheme(){
+        return EXISTENT_THEME;
+    }
+
+    public static Genre existentGenre(){
+        return EXISTENT_GENRE;
     }
 
 
