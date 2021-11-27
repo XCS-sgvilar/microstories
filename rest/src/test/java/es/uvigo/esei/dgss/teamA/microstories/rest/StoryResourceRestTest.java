@@ -16,9 +16,12 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import static org.hamcrest.CoreMatchers.is;
 
 import javax.ws.rs.core.Response;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
@@ -32,10 +35,14 @@ import static org.junit.Assert.assertThat;
 public class StoryResourceRestTest {
     private final static String BASE_PATH = "api/microstory/";
     private final static String BASE_PATH_ADD_PARAMS = "api/microstory?";
-    private final static String CONTAINS_PARAM_PATH ="contains=";
-    private final static String ADD_PARAM_CHAR ="&";
-    private final static String PAGE_PARAM_PATH ="page=";
-    private final static String MAX_ITEMS_PARAM_PATH ="maxItems=";
+    private final static String BASE_PATH_ADD_PARAMS_SEARCH = "api/microstory/search?";
+    private final static String CONTAINS_PARAM_PATH = "contains=";
+    private final static String THEME_PARAM_PATH = "theme=";
+    private final static String GENRE_PARAM_PATH = "genre=";
+    private final static String PUBLICATED_PARAM_PATH = "publicated=";
+    private final static String ADD_PARAM_CHAR = "&";
+    private final static String PAGE_PARAM_PATH = "page=";
+    private final static String MAX_ITEMS_PARAM_PATH = "maxItems=";
 //    private final static String PAGE_PARAM = PAGE_PARAM_PATH + "1";
 //    private final static String MAX_ITEMS_PARAM = MAX_ITEMS_PARAM_PATH + "20";
 
@@ -90,7 +97,8 @@ public class StoryResourceRestTest {
     @InSequence(4)
     @UsingDataSet("stories.xml")
     @Cleanup(phase = TestExecutionPhase.NONE)
-    public void beforeGet() {}
+    public void beforeGet() {
+    }
 
     @Test
     @InSequence(5)
@@ -115,13 +123,15 @@ public class StoryResourceRestTest {
     @CleanupUsingScript({
             "cleanup.sql", "cleanup-autoincrement.sql"
     })
-    public void afterGet() {}
+    public void afterGet() {
+    }
 
     @Test
     @InSequence(7)
     @UsingDataSet("stories.xml")
     @Cleanup(phase = TestExecutionPhase.NONE)
-    public void beforeGetNonExistent() {}
+    public void beforeGetNonExistent() {
+    }
 
     @Test
     @InSequence(8)
@@ -141,13 +151,15 @@ public class StoryResourceRestTest {
     @CleanupUsingScript({
             "cleanup.sql", "cleanup-autoincrement.sql"
     })
-    public void afterGetNonExistent() {}
+    public void afterGetNonExistent() {
+    }
 
     @Test
     @InSequence(10)
     @UsingDataSet("stories.xml")
     @Cleanup(phase = TestExecutionPhase.NONE)
-    public void beforeSearchByText() {}
+    public void beforeSearchByText() {
+    }
 
     @Test
     @InSequence(11)
@@ -177,6 +189,47 @@ public class StoryResourceRestTest {
     @CleanupUsingScript({
             "cleanup.sql", "cleanup-autoincrement.sql"
     })
-    public void afterSearchByText() {}
+    public void afterSearchByText() {
+    }
+
+    @Test
+    @InSequence(13)
+    @UsingDataSet("stories.xml")
+    @Cleanup(phase = TestExecutionPhase.NONE)
+    public void beforeSearchStories() {
+    }
+
+    @Test
+    @InSequence(14)
+    @RunAsClient
+    public void testSearchStories(
+            @ArquillianResteasyResource(BASE_PATH_ADD_PARAMS_SEARCH + THEME_PARAM_PATH + EXISTENT_THEME_STRING + ADD_PARAM_CHAR + GENRE_PARAM_PATH + EXISTENT_GENRE_STRING + ADD_PARAM_CHAR + PUBLICATED_PARAM_PATH + EXISTENT_PUBLICATED_STRING)
+                    ResteasyWebTarget webTarget
+    ) throws Exception {
+        int start = 0;
+        int end = 10;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), Calendar.JANUARY, 1, 0, 0, 0);
+        Date initDate = calendar.getTime();
+        final Response response = webTarget.request().get();
+        System.out.println(webTarget.request());
+        System.out.println(response.getStatus());
+
+        assertThat(response, hasOkStatus());
+
+        final List<Story> list = ListStoryType.readEntity(response);
+
+        assertThat(list, containsStorysInOrder(storiesSearch(EXISTENT_GENRE, EXISTENT_THEME, initDate, new Date(), start, end)));
+    }
+
+    @Test
+    @InSequence(15)
+    @ShouldMatchDataSet("stories.xml")
+    @CleanupUsingScript({
+            "cleanup.sql", "cleanup-autoincrement.sql"
+    })
+    public void afterSearchStories() {
+    }
+
 
 }
