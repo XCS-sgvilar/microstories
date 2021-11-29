@@ -16,7 +16,7 @@
 			<h:outputText class="badge bg-success" value="Published #{storyViewMB.story.date}">Published in</h:outputText>
 		</div>
 			<div class="card-header">
-			<h:outputText  value="Author: #{storyViewMB.story.author}"/>
+			<h:outputText  value="Author: #{storyViewMB.story.author.login}"/>
 		</div>
 		<ul class="list-group list-group-flush d-flex justify-content-end">
 			<li class="list-group-item"><span class="badge bg-success">#{storyViewMB.story.genre}</span>

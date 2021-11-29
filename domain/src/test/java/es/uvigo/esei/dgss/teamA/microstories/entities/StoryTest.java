@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 
 public class StoryTest {
 
-	private String author;
+	private User author;
 	private Date date;
 	private String title;
 	private String content;
@@ -42,7 +42,7 @@ public class StoryTest {
 	@Before
 	public void setUp() throws Exception {
 		this.date = new Date();
-		this.author ="Yudkowsky";
+		this.author =new User("TestUser","Password");
 		this.title = "Story 1";
 		this.content = "This is the content of story 1";
 		this.genre = Genre.STORY;
@@ -70,8 +70,9 @@ public class StoryTest {
 		final String[] titles = { title, "A", StringUtils.repeat("A", 80)};
 
 		for (String title : titles) {
-			final Story story = new Story(author, date, title, content, genre, mainTheme, secondaryTheme, publicated);
+			final Story story = new Story(author,date, title, content, genre, mainTheme, secondaryTheme, publicated);
 
+			assertThat(story.getAuthor(), is(equalTo(author)));
 			assertThat(story.getDate(), is(equalTo(date)));
 			assertThat(story.getTitle(), is(equalTo(title)));
 			assertThat(story.getContent(), is(equalTo(content)));
@@ -121,6 +122,11 @@ public class StoryTest {
 	@Test(expected = NullPointerException.class)
 	public void testStoryGenreNull() {
 		new Story(this.author, this.date, this.title, this.content, null, this.mainTheme, this.secondaryTheme, this.publicated);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testStoryAuthorNull() {
+		new Story(null,this.date, this.title, this.content, this.genre, this.mainTheme, this.secondaryTheme, this.publicated);
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -195,7 +201,7 @@ public class StoryTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetContentLong() {
-		final Story story = new Story(this.author, this.date, this.title, this.content, this.genre, this.mainTheme,  this.secondaryTheme,this.publicated);
+		final Story story = new Story(this.author,this.date, this.title, this.content, this.genre, this.mainTheme,  this.secondaryTheme,this.publicated);
 
 		story.setContent(repeat('A', 1001));
 	}
