@@ -7,8 +7,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -49,14 +54,16 @@ public class Story implements Serializable {
     @Column(nullable = false)
     private Boolean publicated;
     
-    private String author;
+    @ManyToOne
+    @JoinColumn(name="author", nullable=false)
+    private User author;
     
 
     public Story() {
 
     }
 
-    public Story(int id,String author, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
+    public Story(int id,User author, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
         this.id = id;
         this.setAuthor(author);
         this.setDate(date);
@@ -70,7 +77,7 @@ public class Story implements Serializable {
 
   
 
-	public Story(String author,Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
+	public Story(User author,Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
 		this.setAuthor(author);
 		this.setDate(date);
         this.setTitle(title);
@@ -84,11 +91,12 @@ public class Story implements Serializable {
     public int getId() {
         return id;
     }
-   public String getAuthor() {
+   @XmlTransient
+   public User getAuthor() {
 	return author;
 }
     
-    private void setAuthor(String author) {
+    private void setAuthor(User author) {
     	 requireNonNull(author, "author can't be null");
   		this.author=author;
   	}

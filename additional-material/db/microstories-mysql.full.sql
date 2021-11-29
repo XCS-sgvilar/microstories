@@ -23,21 +23,42 @@ create table Story
 (
     id int auto_increment
         primary key,
-    author varchar(100) not null,
+    author varchar(100) not null, 
     content varchar(1000) not null,
     date datetime not null,
     genre varchar(9) not null,
     mainTheme varchar(15) not null,
     publicated bit not null,
     secondaryTheme varchar(15) null,
-    title varchar(80) not null
+    title varchar(80) not null,
+   FOREIGN KEY (author) REFERENCES User(login)
 );
+create table User
+(
+    login varchar(100) not null  primary key,
+    password varchar(100) not null,
+);
+
 
 --
 -- Data insertion
 --
 
 -- Write here the data insertion queries.
+insert into User (login,password)
+values ("JK Rowling" ,"JK RowlingPasswd"),
+("Scott Aaronson" ,"Scott AaronsonPasswd")
+("Victor" ,"VictorPasswd")
+("Brandon Sanderson" ,"Brandon SandersonPasswd")
+("Santiago" ,"SantiagoPasswd")
+("Ines" ,"InesPasswd")
+("Bruno" ,"BrunoPasswd")
+("Yudkowsky" ,"I am a potato 927")
+("Greg Egan" ,"Greg EganPsswd")
+
+
+
+
 
 insert into Story (id,author, date, title,  content,  genre, mainTheme, secondaryTheme, publicated)
 values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.', 'eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'NANOSTORY', 'ROMANCE', 'HORROR', true),

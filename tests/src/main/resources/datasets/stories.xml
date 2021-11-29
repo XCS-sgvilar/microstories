@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <dataset>
+	<User login="JK Rowling" password="JK RowlingPasswd"/>
+	<User login="Scott Aaronson" password="Scott AaronsonPasswd"/>
+	<User login="Victor" password="Victor"/>
+	<User login="Brandon Sanderson" password="Brandon SandersonPasswd"/>
+	<User login="Santiago" password="SantiagoPasswd"/>
+	<User login="Ines" password="InesPasswd"/>
+	<User login="Bruno" password="BrunoPasswd"/>
+	<User login="Yudkowsky" password="I am a potato 927"/>
+	<User login="Greg Egan" password="Greg EganPsswd"/>
     <STORY id="1"  author="JK Rowling" date="2000-02-01 01:01:01" title="Aliquam ultrices iaculis odio." content="eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu," genre="NANOSTORY" mainTheme="ROMANCE" secondaryTheme="HORROR" publicated="true" />
     <STORY id="2"  author="JK Rowling" date="2000-02-01 01:01:01" title="Integer aliquam adipiscing lacus." content="eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu," genre="POETRY" mainTheme="CHILD" secondaryTheme="HORROR" publicated="true" />
     <STORY id="3"  author="JK Rowling" date="2000-02-01 01:01:01" title="Aliquam ultrices iaculis odio." content="eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu," genre="STORY" mainTheme="HISTORIC" secondaryTheme="HORROR" publicated="true" />
@@ -101,4 +110,5 @@
     <STORY id="98" author="Yudkowsky" date="2014-07-01 01:01:01" title="Nulla semper tellus id" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="POETRY" mainTheme="CHILD" secondaryTheme="HISTORIC" publicated="false" />
     <STORY id="99" author="Yudkowsky" date="2014-07-01 01:01:01" title="orci. Ut sagittis lobortis" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="NANOSTORY" mainTheme="ADVENTURE" secondaryTheme="HISTORIC" publicated="false" />
     <STORY id="100" author="Greg Egan" date="2014-07-01 01:01:01" title="Curabitur vel lectus. Cum" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="POETRY" mainTheme="ADVENTURE" secondaryTheme="HISTORIC" publicated="false" />
+
 </dataset>

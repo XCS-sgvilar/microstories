@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 
 public class StoryTest {
 	
-	private String author;
+	private User author;
 	private Date date;
 	private String title;
 	private String content;
@@ -36,7 +36,7 @@ public class StoryTest {
 	@Before
 	public void setUp() throws Exception {
 		this.date = new Date();
-		this.author ="Yudkowsky";
+		this.author =new User("TestUser","Password");
 		this.title = "Story 1";
 		this.content = "This is the content of story 1";
 		this.genre = Genre.STORY;
@@ -61,7 +61,8 @@ public class StoryTest {
 
 		for (String title : titles) {
 			final Story story = new Story(author,date, title, content, genre, mainTheme, secondaryTheme, publicated);
-
+			
+			assertThat(story.getAuthor(), is(equalTo(author)));
 			assertThat(story.getDate(), is(equalTo(date)));
 			assertThat(story.getTitle(), is(equalTo(title)));
 			assertThat(story.getContent(), is(equalTo(content)));
