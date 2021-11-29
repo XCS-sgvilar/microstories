@@ -13,9 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * EJB for the Owners. Only administrators have access to this class.
- *
- * @author Miguel Reboiro Jato
+ * EJB for the Stories.
  */
 @Stateless
 public class StoryService {
