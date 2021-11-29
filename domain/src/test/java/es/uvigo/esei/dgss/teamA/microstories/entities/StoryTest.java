@@ -5,7 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static org.apache.commons.lang3.StringUtils.repeat;
@@ -23,6 +25,7 @@ public class StoryTest {
 	private Theme mainTheme;
 	private Theme secondaryTheme;
 	private Boolean publicated;
+	private List<Date> visitDate;
 
 	private Date newDate;
 	private Date futureDate;
@@ -32,6 +35,7 @@ public class StoryTest {
 	private Theme newMainTheme;
 	private Theme newSecondaryTheme;
 	private Boolean newPublicated;
+	private List<Date> newVisitDate;
 
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
 
@@ -45,6 +49,7 @@ public class StoryTest {
 		this.mainTheme = Theme.ADVENTURE;
 		this.secondaryTheme = Theme.HISTORIC;
 		this.publicated = true;
+		this.visitDate = new ArrayList<>();
 
 		final int oneDay = 24*60*60*1000;
 		this.newDate = new Date(System.currentTimeMillis() - oneDay);
@@ -55,6 +60,9 @@ public class StoryTest {
 		this.newMainTheme = Theme.CHILD;
 		this.newSecondaryTheme = Theme.SCIENCE_FICTION;
 		this.newPublicated = false;
+		this.newVisitDate = new ArrayList<>();
+		this.newVisitDate.add(this.newDate);
+		this.newVisitDate.add(this.futureDate);
 	}
 
 	@Test
@@ -270,4 +278,12 @@ public class StoryTest {
 		story.setPublicated(null);
 	}
 
+	@Test
+	public void testSetVisitDate() {
+		final Story story = new Story(this.author, this.date, this.title, this.content, this.genre, this.mainTheme,this.secondaryTheme, this.publicated);
+
+		story.setVisitDate(this.newVisitDate);
+
+		assertThat(story.getVisitDate(), is(equalTo(this.newVisitDate)));
+	}
 }

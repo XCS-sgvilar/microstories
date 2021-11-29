@@ -6,7 +6,7 @@ USE `dgss2122_teamA_microstories`;
 --
 -- User creation
 --
-CREATE USER microstories@'%' IDENTIFIED BY 'microstoriespass';
+CREATE USER IF NOT EXISTS microstories@'%' IDENTIFIED BY 'microstoriespass';
 GRANT ALL PRIVILEGES ON dgss2122_teamA_microstories.* TO microstories@'%';
 FLUSH PRIVILEGES;
 
@@ -31,6 +31,14 @@ create table Story
     publicated bit not null,
     secondaryTheme varchar(15) null,
     title varchar(80) not null
+);
+
+create table visit_date
+(
+    id int not null,
+    date datetime null,
+    constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
+        foreign key (id) references Story(id)
 );
 
 --
@@ -139,7 +147,7 @@ values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.
         (97,'Yudkowsky', '2014-07-01 01:01:01', 'Nulla semper tellus id', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'HISTORIC', 'HISTORIC', false),
         (98,'Yudkowsky', '2014-07-01 01:01:01', 'Nulla semper tellus id', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'CHILD', 'HISTORIC', false),
         (99,'Yudkowsky', '2014-07-01 01:01:01', 'orci. Ut sagittis lobortis', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'NANOSTORY', 'ADVENTURE', 'HISTORIC', false),
-        (100,'Greg Egan','2014-07-01 01:01:01', 'Curabitur vel lectus. Cum', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'ADVENTURE', 'HISTORIC', false)
+        (100,'Greg Egan','2014-07-01 01:01:01', 'Curabitur vel lectus. Cum', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'ADVENTURE', 'HISTORIC', false);
 
 insert into visit_date(id, date)
 values  (1, '2000-02-01 01:01:01'),
@@ -159,4 +167,4 @@ values  (1, '2000-02-01 01:01:01'),
         (8, '2000-02-03 01:01:01'),
         (8, '2000-02-09 01:01:01'),
         (9, '2000-02-19 01:01:01'),
-        (10, '2000-02-19 01:01:01')
+        (10, '2000-02-19 01:01:01');
