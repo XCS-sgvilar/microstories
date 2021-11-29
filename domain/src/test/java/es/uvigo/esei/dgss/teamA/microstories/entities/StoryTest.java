@@ -35,6 +35,7 @@ public class StoryTest {
 	private Theme newMainTheme;
 	private Theme newSecondaryTheme;
 	private Boolean newPublicated;
+	private List<Date> newVisitDate;
 
 	private List<Date> newVisitDate;
 
