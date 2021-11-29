@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:outputStylesheet name="./styles/main.css"/>
+<ui:composition template="./WEB-INF/templates/template.xhtml">
+    <ui:define name="advanceFindStories">
+        <b:container fluid="true" id="searchView">
+            <h:form id="advSearch">
+                <b:row>
+                    <div class="row advancedSearch pt-3 pb-3 align-items-center rounded border border-info
+                        d-inline-flex w-auto">
+                        <!-- Type -->
+                        <div class="align-items-center w-auto" style="padding-bottom: 5px">Quiero
+                            ver
+                        </div>
+                        <div class="input-group input-group-sm mb-3 d-inline-flex align-items-center w-auto">
+                            <h:selectOneMenu name="tipo_relato" value="#{storySearchMB.genre}"
+                                             class="form-select" id="inputGroupSelectType">
+                                <f:selectItem itemValue="#{null}" itemLabel="'cualquier tipo de relato'"/>
+                                <f:selectItem itemValue="STORY" itemLabel="STORY"/>
+                                <f:selectItem itemValue="POETRY" itemLabel="POETRY"/>
+                                <f:selectItem itemValue="NANOSTORY" itemLabel="NANOSTORY"/>
+                            </h:selectOneMenu>
+                        </div>
+
+                        <!-- Theme -->
+                        <div class="align-items-center w-auto" style="padding-bottom: 5px">sobre</div>
+                        <div class="input-group input-group-sm mb-3 d-inline-flex align-items-center w-auto"
+                             style="margin-top:10px margin-bottom:0">
+                            <h:selectOneMenu name="tema_relato" value="#{storySearchMB.theme}"
+                                             class="form-select" id="inputGroupSelectTheme">
+                                <f:selectItem itemValue="#{null}" itemLabel="'cualquier tema'"/>
+                                <f:selectItem itemValue="ADVENTURE" itemLabel="ADVENTURE"/>
+                                <f:selectItem itemValue="SCIENCE_FICTION" itemLabel="SCIENCE_FICTION"/>
+                                <f:selectItem itemValue="HISTORIC" itemLabel="HISTORIC"/>
+                                <f:selectItem itemValue="CHILD" itemLabel="CHILD"/>
+                                <f:selectItem itemValue="ROMANCE" itemLabel="ROMANCE"/>
+                                <f:selectItem itemValue="SUSPENSE" itemLabel="SUSPENSE"/>
+                                <f:selectItem itemValue="HORROR" itemLabel="HORROR"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <!-- Publication date -->
+                        <div class="align-items-center w-auto" style="padding-bottom: 5px">publicado</div>
+                        <div class="input-group input-group-sm mb-3 d-inline-flex align-items-center w-auto"
+                             style="margin-top:10px margin-bottom:0">
+                            <h:selectOneMenu name="publicado_relato" value="#{storySearchMB.publicated_date}"
+                                             class="form-select" id="inputGroupSelectDate">
+                                <f:selectItem itemValue="#{null}" itemLabel="'en cualquier momento'"/>
+                                <f:selectItem itemValue="HOY" itemLabel="HOY"/>
+                                <f:selectItem itemValue="ESTA SEMANA" itemLabel="ESTA SEMANA"/>
+                                <f:selectItem itemValue="ESTE MES" itemLabel="ESTE MES"/>
+                                <f:selectItem itemValue="ESTE AÑO" itemLabel="ESTE AÑO"/>
+                                <f:selectItem itemValue="CUALQUIER MOMENTO" itemLabel="CUALQUIER MOMENTO"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <!-- Search Button -->
+                        <div class="justify-content-end align-items-center w-auto">
+                            <h:commandButton class="btn btn-primary" value="Search"
+                                             action="#{storySearchMB.advancedSearch()}"/>
+                        </div>
+                    </div>
+
+                </b:row>
+
+                <b:container fluid="true" id="findedStories">
+                    <b:row styleClass="show-grid">
+                        <div class="container mt-2">
+                            <h:form rendered="#{not empty storySearchMB.findStories}">
+                                <h2 class="title text-center">Stories found</h2>
+                            </h:form>
+                            <h:form rendered="#{empty storySearchMB.findStories}">
+                                <h2 class="title text-center">No stories found</h2>
+                            </h:form>
+                            <!-- Cards -->
+                            <div class="row mt-4">
+                                <!-- Card 1 -->
+                                <ui:repeat value="#{storySearchMB.findStories}" var="story">
+                                    <div class="col-md-4 mb-4 d-flex justify-content-center">
+                                        <div class="card" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">#{story.title}</h5>
+                                                <p class="card-text">#{story.content}</p>
+                                            </div>
+                                            <ul class="list-group list-group-flush d-flex justify-content-end">
+                                                <li class="list-group-item">
+                                                    <span class="badge bg-success">#{story.genre}</span>
+                                                    <span class="badge bg-danger">#{story.mainTheme}</span>
+                                                    <span class="badge bg-danger">#{story.secondaryTheme}</span>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body d-flex justify-content-center">
+                                                <h:commandButton class="card-link link"
+                                                                 action="#{storyViewMB.getStoryByid(story.id)}"
+                                                                 value="Read"
+                                                                 style=" background: none!important;
+											border: none;
+											padding: 0!important;
+											font-family: arial, sans-serif;
+											color: #069;
+											text-decoration: underline;
+											cursor: pointer; "/>
+                                                <a href="#" class="card-link">Author</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="#{storySearchMB.isPreviousButtonDisabled()?'page-item disabled':'page-item'}">
+                                    <h:commandButton class="page-link"
+                                                     rendered="#{(not empty storySearchMB.findStories)}"
+                                                     disabled="#{storySearchMB.isPreviousButtonDisabled()}"
+                                                     action="#{storySearchMB.getPreviousStoriesAdvanced()}"
+                                                     value="Previous"></h:commandButton>
+                                </li>
+                                <li class="#{storySearchMB.isNextButtonDisabledAdvanced()?'page-item disabled':'page-item'}">
+                                    <h:commandButton rendered="#{not empty storySearchMB.findStories}" class="page-link"
+                                                     disabled="#{storySearchMB.isNextButtonDisabledAdvanced()}"
+                                                     action="#{storySearchMB.getNextStoriesAdvanced()}"
+                                                     value="Next"></h:commandButton>
+                                </li>
+                            </ul>
+                        </nav>
+                    </b:row>
+                </b:container>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
+</html>
