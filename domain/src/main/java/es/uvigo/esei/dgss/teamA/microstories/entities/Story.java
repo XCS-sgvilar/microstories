@@ -58,8 +58,9 @@ public class Story implements Serializable {
     @ElementCollection
     @CollectionTable(
             name="visit_date",
-            joinColumns = @JoinColumn(name="date")
+            joinColumns = @JoinColumn(name="story_id")
     )
+    @Column(name = "visit_date")
     private List<Date> visitDate;
 
     public Story() {

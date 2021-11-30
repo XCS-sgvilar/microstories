@@ -35,8 +35,8 @@ create table Story
 
 create table visit_date
 (
-    id int not null,
-    date datetime null,
+    story_id int not null,
+    visit_date datetime null,
     constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
         foreign key (id) references Story(id)
 );
@@ -149,7 +149,7 @@ values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.
         (99,'Yudkowsky', '2014-07-01 01:01:01', 'orci. Ut sagittis lobortis', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'NANOSTORY', 'ADVENTURE', 'HISTORIC', false),
         (100,'Greg Egan','2014-07-01 01:01:01', 'Curabitur vel lectus. Cum', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'ADVENTURE', 'HISTORIC', false);
 
-insert into visit_date(id, date)
+insert into visit_date(story_id, visit_date)
 values  (1, '2000-02-01 01:01:01'),
         (1, '2000-02-03 01:01:01'),
         (1, '2000-02-09 01:01:01'),

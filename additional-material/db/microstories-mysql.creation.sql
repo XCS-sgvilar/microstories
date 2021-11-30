@@ -14,8 +14,8 @@ create table Story
 
 create table visit_date
 (
-    id int not null,
-    date datetime null,
+    story_id int not null,
+    visit_date datetime null,
     constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
         foreign key (id) references Story(id)
 );

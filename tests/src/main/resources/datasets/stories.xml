@@ -102,23 +102,23 @@
     <STORY id="99" author="Yudkowsky" date="2014-07-01 01:01:01" title="orci. Ut sagittis lobortis" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="NANOSTORY" mainTheme="ADVENTURE" secondaryTheme="HISTORIC" publicated="false" />
     <STORY id="100" author="Greg Egan" date="2014-07-01 01:01:01" title="Curabitur vel lectus. Cum" content="est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu" genre="POETRY" mainTheme="ADVENTURE" secondaryTheme="HISTORIC" publicated="false" />
 
-    <VISIT_DATE id="1" date="2000-02-01 01:01:01" />
-    <VISIT_DATE id="1" date="2000-02-03 01:01:01" />
-    <VISIT_DATE id="1" date="2000-02-09 01:01:01" />
-    <VISIT_DATE id="2" date="2000-02-01 01:01:01" />
-    <VISIT_DATE id="3" date="2000-02-11 01:01:01" />
-    <VISIT_DATE id="3" date="2000-02-13 01:01:01" />
-    <VISIT_DATE id="4" date="2000-02-11 01:01:01" />
-    <VISIT_DATE id="4" date="2000-02-13 01:01:01" />
-    <VISIT_DATE id="5" date="2000-02-16 01:01:01" />
-    <VISIT_DATE id="5" date="2000-02-03 01:01:01" />
-    <VISIT_DATE id="6" date="2000-02-01 01:01:01" />
-    <VISIT_DATE id="7" date="2000-02-01 01:01:01" />
-    <VISIT_DATE id="7" date="2000-02-18 01:01:01" />
-    <VISIT_DATE id="8" date="2000-02-01 01:01:01" />
-    <VISIT_DATE id="8" date="2000-02-03 01:01:01" />
-    <VISIT_DATE id="8" date="2000-02-09 01:01:01" />
-    <VISIT_DATE id="9" date="2000-02-19 01:01:01" />
-    <VISIT_DATE id="10" date="2000-02-19 01:01:01" />
+    <VISIT_DATE story_id="1" visit_date="2000-02-01 01:01:01" />
+    <VISIT_DATE story_id="1" visit_date="2000-02-03 01:01:01" />
+    <VISIT_DATE story_id="1" visit_date="2000-02-09 01:01:01" />
+    <VISIT_DATE story_id="2" visit_date="2000-02-01 01:01:01" />
+    <VISIT_DATE story_id="3" visit_date="2000-02-11 01:01:01" />
+    <VISIT_DATE story_id="3" visit_date="2000-02-13 01:01:01" />
+    <VISIT_DATE story_id="4" visit_date="2000-02-11 01:01:01" />
+    <VISIT_DATE story_id="4" visit_date="2000-02-13 01:01:01" />
+    <VISIT_DATE story_id="5" visit_date="2000-02-16 01:01:01" />
+    <VISIT_DATE story_id="5" visit_date="2000-02-03 01:01:01" />
+    <VISIT_DATE story_id="6" visit_date="2000-02-01 01:01:01" />
+    <VISIT_DATE story_id="7" visit_date="2000-02-01 01:01:01" />
+    <VISIT_DATE story_id="7" visit_date="2000-02-18 01:01:01" />
+    <VISIT_DATE story_id="8" visit_date="2000-02-01 01:01:01" />
+    <VISIT_DATE story_id="8" visit_date="2000-02-03 01:01:01" />
+    <VISIT_DATE story_id="8" visit_date="2000-02-09 01:01:01" />
+    <VISIT_DATE story_id="9" visit_date="2000-02-19 01:01:01" />
+    <VISIT_DATE story_id="10" visit_date="2000-02-19 01:01:01" />
 
 </dataset>

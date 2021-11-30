@@ -63,9 +63,6 @@ public class StoryResource {
             stories = storyService.findStoriesByText(contains, page, maxItems);
         }
 
-        if (stories.isEmpty()) {
-            return Response.ok("No entries").build();
-        }
         return Response.ok(stories).build();
 
     }
