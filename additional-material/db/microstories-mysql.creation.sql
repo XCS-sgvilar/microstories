@@ -26,3 +26,4 @@ create table VisitDate
     constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
         foreign key (storyId) references Story(id)
 );
+
