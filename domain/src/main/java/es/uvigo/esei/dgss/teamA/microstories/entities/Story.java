@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -173,6 +174,7 @@ public class Story implements Serializable {
         this.publicated = publicated;
     }
 
+    @XmlTransient
     public List<Date> getVisitDate() {
         return visitDate;
     }

@@ -146,6 +146,6 @@ public class StoryResourceUnitTest extends EasyMockSupport {
         final Response response = resource.searchByText(nonExistentContentFragment(),null,null);
 
         assertThat(response, hasOkStatus());
-        assertThat(response.getEntity(), is(instanceOf(String.class)));
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
     }
 }
