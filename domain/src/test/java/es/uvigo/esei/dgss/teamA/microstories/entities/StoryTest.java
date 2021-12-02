@@ -37,8 +37,6 @@ public class StoryTest {
 	private Boolean newPublicated;
 	private List<Date> newVisitDate;
 
-	private List<Date> newVisitDate;
-
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
 
 	@Before
