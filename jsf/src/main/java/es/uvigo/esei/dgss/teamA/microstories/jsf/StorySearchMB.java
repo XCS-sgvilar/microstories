@@ -64,6 +64,11 @@ public class StorySearchMB implements Serializable {
         return "advanceSearch";
     }
 
+    public String toTextSearchView(){
+
+        return "search";
+    }
+
 
     public String advancedSearch(){
         calculateInitialEndDate();

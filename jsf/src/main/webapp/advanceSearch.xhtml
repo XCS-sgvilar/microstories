@@ -8,6 +8,19 @@
 
 <h:outputStylesheet name="./styles/main.css"/>
 <ui:composition template="./WEB-INF/templates/template.xhtml">
+
+    <ui:define name="advanceSearchButton">
+        <div class="card-body d-flex justify-content-center">
+            <h:form class="form-inline" id="advancedSearch">
+                <div class="d-flex justify-content-center col-12">
+                    <h:commandButton class="btn btn-success btn-lg my-2 my-sm-0" ajax="true"
+                                     value="Search by text" action="#{storySearchMB.toTextSearchView()}"/>
+                </div>
+
+            </h:form>
+        </div>
+    </ui:define>
+
     <ui:define name="advanceFindStories">
         <b:container id="searchView">
             <h:form id="advSearch">
