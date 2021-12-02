@@ -27,7 +27,10 @@ import java.util.stream.Collectors;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.*;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentStory;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentId;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertNull;
