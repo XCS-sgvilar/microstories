@@ -17,6 +17,11 @@ FLUSH PRIVILEGES;
 
 -- Write here the table creation queries.
 
+create table User
+(
+    login varchar(100) not null  primary key,
+    password varchar(100) not null,
+);
 
 
 create table Story
@@ -33,11 +38,6 @@ create table Story
     title varchar(80) not null,
    FOREIGN KEY (author) REFERENCES User(login)
 );
-create table User
-(
-    login varchar(100) not null  primary key,
-    password varchar(100) not null,
-);
 
 
 --
@@ -46,15 +46,15 @@ create table User
 
 -- Write here the data insertion queries.
 insert into User (login,password)
-values ("JK Rowling" ,"JK RowlingPasswd"),
-("Scott Aaronson" ,"Scott AaronsonPasswd")
-("Victor" ,"VictorPasswd")
-("Brandon Sanderson" ,"Brandon SandersonPasswd")
-("Santiago" ,"SantiagoPasswd")
-("Ines" ,"InesPasswd")
-("Bruno" ,"BrunoPasswd")
-("Yudkowsky" ,"I am a potato 927")
-("Greg Egan" ,"Greg EganPsswd")
+values ('JK Rowling' ,'JK RowlingPasswd'),
+('Scott Aaronson' ,'Scott AaronsonPasswd'),
+('Victor' ,'VictorPasswd'),
+('Brandon Sanderson' ,'Brandon SandersonPasswd'),
+('Santiago' ,'SantiagoPasswd'),
+('Ines' ,'InesPasswd'),
+('Bruno' ,'BrunoPasswd'),
+('Yudkowsky' ,'I am a potato 927'),
+('Greg Egan' ,'Greg EganPsswd');
 
 
 

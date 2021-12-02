@@ -1,17 +1,17 @@
 
 insert into User (login,password)
-values ("JK Rowling" ,"JK RowlingPasswd"),
-("Scott Aaronson" ,"Scott AaronsonPasswd")
-("Victor" ,"VictorPasswd")
-("Brandon Sanderson" ,"Brandon SandersonPasswd")
-("Santiago" ,"SantiagoPasswd")
-("Ines" ,"InesPasswd")
-("Bruno" ,"BrunoPasswd")
-("Yudkowsky" ,"I am a potato 927")
-("Greg Egan" ,"Greg EganPsswd")
+values ('JK Rowling' ,'JK RowlingPasswd'),
+('Scott Aaronson' ,'Scott AaronsonPasswd'),
+('Victor' ,'VictorPasswd'),
+('Brandon Sanderson' ,'Brandon SandersonPasswd'),
+('Santiago' ,'SantiagoPasswd'),
+('Ines' ,'InesPasswd'),
+('Bruno' ,'BrunoPasswd'),
+('Yudkowsky' ,'I am a potato 927'),
+('Greg Egan' ,'Greg EganPsswd');
 
 
-insert into Story (id,author, date, title,  content,  genre, mainTheme, secondaryTheme, publicated)
+insert into Story (id, author, date, title,  content,  genre, mainTheme, secondaryTheme, publicated)
 values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.', 'eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'NANOSTORY', 'ROMANCE', 'HORROR', true),
         (2,'JK Rowling', '2000-02-01 01:01:01', 'Integer aliquam adipiscing lacus.', 'eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'POETRY', 'CHILD', 'HORROR', true),
         (3,'JK Rowling', '2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.', 'eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'STORY', 'HISTORIC', 'HORROR', true),
