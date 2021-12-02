@@ -1,6 +1,8 @@
 package es.uvigo.esei.dgss.teamA.microstories.entities;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,13 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
-
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.Validate.inclusiveBetween;
@@ -53,11 +54,18 @@ public class Story implements Serializable {
 
     @Column(nullable = false)
     private Boolean publicated;
-    
+
     @ManyToOne
     @JoinColumn(name="author", nullable=false)
     private User author;
-    
+
+    @ElementCollection
+    @CollectionTable(
+            name="VisitDate",
+            joinColumns = @JoinColumn(name="storyId")
+    )
+    @Column(name = "visitDate")
+    private List<Date> visitDate;
 
     public Story() {
 
@@ -74,8 +82,6 @@ public class Story implements Serializable {
         this.setSecondaryTheme(secondaryTheme);
         this.setPublicated(publicated);
     }
-
-  
 
 	public Story(User author,Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
 		this.setAuthor(author);
@@ -127,7 +133,7 @@ public class Story implements Serializable {
     public String getContent() {
         return content;
     }
-    
+
 
     public void setContent(String content) {
         requireNonNull(content, "content can't be null");
@@ -172,6 +178,15 @@ public class Story implements Serializable {
         this.publicated = publicated;
     }
 
+    @XmlTransient
+    public List<Date> getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(List<Date> visitDate) {
+        this.visitDate = visitDate;
+    }
+
     @Override
     public String toString() {
         return "Story{" +
@@ -184,6 +199,7 @@ public class Story implements Serializable {
                 ", mainTheme=" + mainTheme +
                 ", secondaryTheme=" + secondaryTheme +
                 ", publicated=" + publicated +
+                ", visitDate=" + visitDate +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package es.uvigo.esei.dgss.teamA.microstories.rest;
 
+import es.uvigo.esei.dgss.teamA.microstories.entities.Publicated;
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
 import es.uvigo.esei.dgss.teamA.microstories.service.StoryService;
 import org.easymock.EasyMockRunner;
@@ -14,7 +15,9 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
@@ -155,7 +158,74 @@ public class StoryResourceUnitTest extends EasyMockSupport {
         final Response response = resource.searchByText(nonExistentContentFragment(), null, null);
 
         assertThat(response, hasOkStatus());
-        assertThat(response.getEntity(), is(instanceOf(String.class)));
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
+    }
+
+    @Test
+    public void testSearchStoriesMultipleFields() {
+
+        final List<Story> stories = storiesSearch(existentGenre(), existentTheme(), null, null, 0, 10);
+
+        expect(facade.findStories(existentGenre(), existentTheme(), null, null, 0, 10))
+                .andReturn(stories);
+        replayAll();
+
+        final Response response = resource.searchStories(existentTheme(), existentGenre(), null, 0, 10);
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
+        assertThat((List<Story>) response.getEntity(), containsStorysInOrder(stories));
+    }
+
+    @Test
+    public void testSearchStoriesNoFilters() {
+
+        final List<Story> stories = storiesSearch(null, null, null, null, 0, 10);
+
+        expect(facade.findStories(null, null, null, null, 0, 10))
+                .andReturn(stories);
+        replayAll();
+
+        final Response response = resource.searchStories(null, null, null, 0, 10);
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
+        assertTrue(!stories.isEmpty());
+        assertThat((List<Story>) response.getEntity(), containsStorysInOrder(stories));
+    }
+
+    @Test
+    public void testSearchStoriesByGenre() {
+
+        final List<Story> stories = storiesSearch(existentGenre(), null, null, null, 0, 10);
+
+        expect(facade.findStories(existentGenre(), null, null, null, 0, 10))
+                .andReturn(stories);
+        replayAll();
+
+        final Response response = resource.searchStories(null, existentGenre(), null, 0, 10);
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
+        assertTrue(!stories.isEmpty());
+        assertThat((List<Story>) response.getEntity(), containsStorysInOrder(stories));
+    }
+
+    @Test
+    public void testSearchStoriesByTheme() {
+
+        final List<Story> stories = storiesSearch(null, existentTheme(), null, null, 0, 10);
+
+        expect(facade.findStories(null, existentTheme(), null, null, 0, 10))
+                .andReturn(stories);
+        replayAll();
+
+        final Response response = resource.searchStories(existentTheme(), null, null, 0, 10);
+
+        assertThat(response, hasOkStatus());
+        assertThat(response.getEntity(), is(instanceOf(List.class)));
+        assertTrue(!stories.isEmpty());
+        assertThat((List<Story>) response.getEntity(), containsStorysInOrder(stories));
     }
 
     @Test

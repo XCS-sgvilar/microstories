@@ -6,7 +6,7 @@ USE `dgss2122_teamA_microstories`;
 --
 -- User creation
 --
-CREATE USER microstories@'%' IDENTIFIED BY 'microstoriespass';
+CREATE USER IF NOT EXISTS microstories@'%' IDENTIFIED BY 'microstoriespass';
 GRANT ALL PRIVILEGES ON dgss2122_teamA_microstories.* TO microstories@'%';
 FLUSH PRIVILEGES;
 
@@ -20,15 +20,14 @@ FLUSH PRIVILEGES;
 create table User
 (
     login varchar(100) not null  primary key,
-    password varchar(100) not null,
+    password varchar(100) not null
 );
-
 
 create table Story
 (
     id int auto_increment
         primary key,
-    author varchar(100) not null, 
+    author varchar(100) not null,
     content varchar(1000) not null,
     date datetime not null,
     genre varchar(9) not null,
@@ -39,6 +38,14 @@ create table Story
    FOREIGN KEY (author) REFERENCES User(login)
 );
 
+create table VisitDate
+(
+    storyId int not null,
+    visitDate datetime null,
+    constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
+        foreign key (storyId) references Story(id)
+);
+
 
 --
 -- Data insertion
@@ -46,15 +53,15 @@ create table Story
 
 -- Write here the data insertion queries.
 insert into User (login,password)
-values ('JK Rowling' ,'JK RowlingPasswd'),
-('Scott Aaronson' ,'Scott AaronsonPasswd'),
-('Victor' ,'VictorPasswd'),
-('Brandon Sanderson' ,'Brandon SandersonPasswd'),
-('Santiago' ,'SantiagoPasswd'),
-('Ines' ,'InesPasswd'),
-('Bruno' ,'BrunoPasswd'),
-('Yudkowsky' ,'I am a potato 927'),
-('Greg Egan' ,'Greg EganPsswd');
+values ("JK Rowling" ,"JK RowlingPasswd"),
+("Scott Aaronson" ,"Scott AaronsonPasswd"),
+("Victor" ,"VictorPasswd"),
+("Brandon Sanderson" ,"Brandon SandersonPasswd"),
+("Santiago" ,"SantiagoPasswd"),
+("Ines" ,"InesPasswd"),
+("Bruno" ,"BrunoPasswd"),
+("Yudkowsky" ,"I am a potato 927"),
+("Greg Egan" ,"Greg EganPsswd")
 
 
 
@@ -161,3 +168,23 @@ values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.
         (98,'Yudkowsky', '2014-07-01 01:01:01', 'Nulla semper tellus id', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'CHILD', 'HISTORIC', false),
         (99,'Yudkowsky', '2014-07-01 01:01:01', 'orci. Ut sagittis lobortis', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'NANOSTORY', 'ADVENTURE', 'HISTORIC', false),
         (100,'Greg Egan','2014-07-01 01:01:01', 'Curabitur vel lectus. Cum', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'ADVENTURE', 'HISTORIC', false)
+
+insert into VisitDate(storyId, visitDate)
+values  (1, '2000-02-01 01:01:01'),
+        (1, '2000-02-03 01:01:01'),
+        (1, '2000-02-09 01:01:01'),
+        (2, '2000-02-01 01:01:01'),
+        (3, '2000-02-11 01:01:01'),
+        (3, '2000-02-13 01:01:01'),
+        (4, '2000-02-11 01:01:01'),
+        (4, '2000-02-13 01:01:01'),
+        (5, '2000-02-16 01:01:01'),
+        (5, '2000-02-03 01:01:01'),
+        (6, '2000-02-01 01:01:01'),
+        (7, '2000-02-01 01:01:01'),
+        (7, '2000-02-18 01:01:01'),
+        (8, '2000-02-01 01:01:01'),
+        (8, '2000-02-03 01:01:01'),
+        (8, '2000-02-09 01:01:01'),
+        (9, '2000-02-19 01:01:01'),
+        (10, '2000-02-19 01:01:01')

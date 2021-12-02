@@ -39,13 +39,17 @@ public class StoryService {
         if (text == null) {
             throw new IllegalArgumentException();
         }
+        System.out.println("QUERY");
+        System.out.println(getStartPagination(page, size));
+        System.out.println(checkSize(size));
+
         final TypedQuery<Story> query = em.createQuery(
                         "SELECT s FROM Story s " +
                                 "WHERE s.publicated = TRUE " +
-                                "AND (s.title LIKE concat('%', ?1,'%') or s.content LIKE concat('%', ?1,'%')) " +
+                                "AND (s.title LIKE :text or s.content LIKE :text) " +
                                 "ORDER BY s.date DESC, s.id", Story.class)
                 .setFirstResult(getStartPagination(page, size)).setMaxResults(checkSize(size));
-        query.setParameter(1, text);
+        query.setParameter("text", "%" + text + "%");
         return query.getResultList();
     }
 
@@ -80,6 +84,4 @@ public class StoryService {
     private Integer checkPage(Integer page) {
         return (page == null || page < PAGE) ? PAGE : page;
     }
-
-
 }
