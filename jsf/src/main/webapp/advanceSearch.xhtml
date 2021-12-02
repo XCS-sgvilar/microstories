@@ -9,66 +9,66 @@
 <h:outputStylesheet name="./styles/main.css"/>
 <ui:composition template="./WEB-INF/templates/template.xhtml">
     <ui:define name="advanceFindStories">
-        <b:container fluid="true" id="searchView">
+        <b:container id="searchView">
             <h:form id="advSearch">
-                <b:row>
-                    <div class="row advancedSearch pt-3 pb-3 align-items-center rounded border border-info
-                        d-inline-flex w-auto">
-                        <!-- Type -->
-                        <div class="align-items-center w-auto" style="padding-bottom: 5px">Quiero
-                            ver
-                        </div>
-                        <div class="input-group input-group-sm mb-3 d-inline-flex align-items-center w-auto">
-                            <h:selectOneMenu name="tipo_relato" value="#{storySearchMB.genre}"
-                                             class="form-select" id="inputGroupSelectType">
-                                <f:selectItem itemValue="#{null}" itemLabel="'cualquier tipo de relato'"/>
-                                <f:selectItem itemValue="STORY" itemLabel="STORY"/>
-                                <f:selectItem itemValue="POETRY" itemLabel="POETRY"/>
-                                <f:selectItem itemValue="NANOSTORY" itemLabel="NANOSTORY"/>
-                            </h:selectOneMenu>
-                        </div>
+                <b:row id="rowAdvSearch">
+                    <b:container id="containerAdvSearch" class="d-inline-flex justify-content-center">
+                        <div class="row advancedSearch pt-3 pb-3 rounded border border-info">
+                            <!-- Type -->
+                            <div class="align-items-center w-auto" style="padding-top: 5px">
+                                Quiero ver
+                            </div>
+                            <div class="input-group input-group-sm d-inline-flex align-items-center w-auto">
+                                <h:selectOneMenu name="tipo_relato" value="#{storySearchMB.genre}"
+                                                 class="form-select" id="inputGroupSelectType">
+                                    <f:selectItem itemValue="#{null}" itemLabel="'cualquier tipo de relato'"/>
+                                    <f:selectItem itemValue="STORY" itemLabel="STORY"/>
+                                    <f:selectItem itemValue="POETRY" itemLabel="POETRY"/>
+                                    <f:selectItem itemValue="NANOSTORY" itemLabel="NANOSTORY"/>
+                                </h:selectOneMenu>
+                            </div>
 
-                        <!-- Theme -->
-                        <div class="align-items-center w-auto" style="padding-bottom: 5px">sobre</div>
-                        <div class="input-group input-group-sm mb-3 d-inline-flex align-items-center w-auto"
-                             style="margin-top:10px margin-bottom:0">
-                            <h:selectOneMenu name="tema_relato" value="#{storySearchMB.theme}"
-                                             class="form-select" id="inputGroupSelectTheme">
-                                <f:selectItem itemValue="#{null}" itemLabel="'cualquier tema'"/>
-                                <f:selectItem itemValue="ADVENTURE" itemLabel="ADVENTURE"/>
-                                <f:selectItem itemValue="SCIENCE_FICTION" itemLabel="SCIENCE_FICTION"/>
-                                <f:selectItem itemValue="HISTORIC" itemLabel="HISTORIC"/>
-                                <f:selectItem itemValue="CHILD" itemLabel="CHILD"/>
-                                <f:selectItem itemValue="ROMANCE" itemLabel="ROMANCE"/>
-                                <f:selectItem itemValue="SUSPENSE" itemLabel="SUSPENSE"/>
-                                <f:selectItem itemValue="HORROR" itemLabel="HORROR"/>
-                            </h:selectOneMenu>
+                            <!-- Theme -->
+                            <div class="align-items-center w-auto" style="padding-top: 5px">sobre</div>
+                            <div class="input-group input-group-sm d-inline-flex align-items-center w-auto"
+                                 style="margin-top:10px margin-bottom:0">
+                                <h:selectOneMenu name="tema_relato" value="#{storySearchMB.theme}"
+                                                 class="form-select" id="inputGroupSelectTheme">
+                                    <f:selectItem itemValue="#{null}" itemLabel="'cualquier tema'"/>
+                                    <f:selectItem itemValue="ADVENTURE" itemLabel="ADVENTURE"/>
+                                    <f:selectItem itemValue="SCIENCE_FICTION" itemLabel="SCIENCE_FICTION"/>
+                                    <f:selectItem itemValue="HISTORIC" itemLabel="HISTORIC"/>
+                                    <f:selectItem itemValue="CHILD" itemLabel="CHILD"/>
+                                    <f:selectItem itemValue="ROMANCE" itemLabel="ROMANCE"/>
+                                    <f:selectItem itemValue="SUSPENSE" itemLabel="SUSPENSE"/>
+                                    <f:selectItem itemValue="HORROR" itemLabel="HORROR"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <!-- Publication date -->
+                            <div class="align-items-center w-auto" style="padding-top: 5px">publicado</div>
+                            <div class="input-group input-group-sm d-inline-flex align-items-center w-auto"
+                                 style="margin-top:10px margin-bottom:0">
+                                <h:selectOneMenu name="publicado_relato" value="#{storySearchMB.publicated_date}"
+                                                 class="form-select" id="inputGroupSelectDate">
+                                    <f:selectItem itemValue="#{null}" itemLabel="'en cualquier momento'"/>
+                                    <f:selectItem itemValue="HOY" itemLabel="HOY"/>
+                                    <f:selectItem itemValue="ESTA SEMANA" itemLabel="ESTA SEMANA"/>
+                                    <f:selectItem itemValue="ESTE MES" itemLabel="ESTE MES"/>
+                                    <f:selectItem itemValue="ESTE AÑO" itemLabel="ESTE AÑO"/>
+                                    <f:selectItem itemValue="CUALQUIER MOMENTO" itemLabel="CUALQUIER MOMENTO"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <!-- Search Button -->
+                            <div class="justify-content-end align-items-center w-auto">
+                                <h:commandButton class="btn btn-primary" value="Search"
+                                                 action="#{storySearchMB.advancedSearch()}"/>
+                            </div>
                         </div>
-                        <!-- Publication date -->
-                        <div class="align-items-center w-auto" style="padding-bottom: 5px">publicado</div>
-                        <div class="input-group input-group-sm mb-3 d-inline-flex align-items-center w-auto"
-                             style="margin-top:10px margin-bottom:0">
-                            <h:selectOneMenu name="publicado_relato" value="#{storySearchMB.publicated_date}"
-                                             class="form-select" id="inputGroupSelectDate">
-                                <f:selectItem itemValue="#{null}" itemLabel="'en cualquier momento'"/>
-                                <f:selectItem itemValue="HOY" itemLabel="HOY"/>
-                                <f:selectItem itemValue="ESTA SEMANA" itemLabel="ESTA SEMANA"/>
-                                <f:selectItem itemValue="ESTE MES" itemLabel="ESTE MES"/>
-                                <f:selectItem itemValue="ESTE AÑO" itemLabel="ESTE AÑO"/>
-                                <f:selectItem itemValue="CUALQUIER MOMENTO" itemLabel="CUALQUIER MOMENTO"/>
-                            </h:selectOneMenu>
-                        </div>
-                        <!-- Search Button -->
-                        <div class="justify-content-end align-items-center w-auto">
-                            <h:commandButton class="btn btn-primary" value="Search"
-                                             action="#{storySearchMB.advancedSearch()}"/>
-                        </div>
-                    </div>
-
+                    </b:container>
                 </b:row>
 
-                <b:container fluid="true" id="findedStories">
-                    <b:row styleClass="show-grid">
+                <b:row styleClass="show-grid">
+                    <b:container id="findedStories">
                         <div class="container mt-2">
                             <h:form rendered="#{not empty storySearchMB.findStories}">
                                 <h2 class="title text-center">Stories found</h2>
@@ -129,8 +129,8 @@
                                 </li>
                             </ul>
                         </nav>
-                    </b:row>
-                </b:container>
+                    </b:container>
+                </b:row>
             </h:form>
         </b:container>
     </ui:define>
