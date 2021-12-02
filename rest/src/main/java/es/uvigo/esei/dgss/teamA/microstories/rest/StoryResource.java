@@ -19,9 +19,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * Resource that represents the stories in the application.

@@ -1,6 +1,5 @@
 package es.uvigo.esei.dgss.teamA.microstories.rest;
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.Publicated;
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
 import es.uvigo.esei.dgss.teamA.microstories.service.StoryService;
 import org.easymock.EasyMockRunner;
@@ -15,14 +14,21 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.*;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentContentFragment;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentGenre;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentId;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentTheme;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentContentFragment;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_ID;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.stories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesSearch;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storyWithId;
 import static es.uvigo.esei.dgss.teamA.microstories.http.util.HasHttpStatus.hasOkStatus;
 import static java.util.Arrays.asList;
 import static org.easymock.EasyMock.expect;
