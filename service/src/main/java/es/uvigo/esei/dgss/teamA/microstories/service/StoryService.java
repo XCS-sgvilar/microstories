@@ -6,9 +6,11 @@ import es.uvigo.esei.dgss.teamA.microstories.entities.Theme;
 
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class StoryService {
     private static final Integer MAX_SIZE = 100;
     @PersistenceContext
     private EntityManager em;
+    @Inject
+    private Principal currentUser;
 
 
     @PermitAll
@@ -68,6 +72,17 @@ public class StoryService {
         query.setParameter("theme", theme);
         query.setParameter("initDate", initDate);
         query.setParameter("endDate", endDate);
+        return query.getResultList();
+    }
+
+    @PermitAll
+    public List<Story> findStoriesByCurrentUser(Integer page, Integer size){
+        String currentUsername = currentUser.getName();
+        final TypedQuery<Story> query = em.createQuery("SELECT * FROM Story s " +
+                "WHERE s.author = :username", Story.class)
+                .setFirstResult(getStartPagination(page, size))
+                .setMaxResults(checkSize(size));
+        query.setParameter("username", currentUsername);
         return query.getResultList();
     }
 

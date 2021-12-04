@@ -5,6 +5,7 @@ import es.uvigo.esei.dgss.teamA.microstories.entities.Genre;
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
 import es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset;
 import es.uvigo.esei.dgss.teamA.microstories.entities.Theme;
+import es.uvigo.esei.dgss.teamA.microstories.service.security.utils.TestPrincipal;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -20,6 +21,7 @@ import org.junit.runner.RunWith;
 
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -41,9 +43,12 @@ import static org.junit.Assert.assertThat;
 @CleanupUsingScript({"cleanup.sql", "cleanup-autoincrement.sql"})
 public class StoryServiceIntegrationTest {
     public static final String TEXT = "Aliquam";
+    public static final int PAGE = 0;
     public static final int SIZE = 10;
     @Inject
     private StoryService facade;
+    @Inject
+    private TestPrincipal principal;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -296,4 +301,21 @@ public class StoryServiceIntegrationTest {
 
         assertThat(recentStories, containsStorysInOrder(storyList));
     }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByCurrentUser(){
+        String username = existentStory().getAuthor().getLogin();
+        principal.setName(username);
+
+        final List<Story> stories = this.facade.findStoriesByCurrentUser(PAGE, SIZE);
+
+        final List<Story> recentStories = recentStories().stream()
+                .filter(i -> i.getAuthor().equals(username))
+                .limit(SIZE)
+                .collect(Collectors.toList());
+
+        assertThat(recentStories, containsStorysInOrder(stories));
+    }
+
 }
