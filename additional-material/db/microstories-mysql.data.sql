@@ -111,7 +111,7 @@ values  (1, 'JK Rowling' ,'2000-02-01 01:01:01', 'Aliquam ultrices iaculis odio.
         (97,'Yudkowsky', '2014-07-01 01:01:01', 'Nulla semper tellus id', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'HISTORIC', 'HISTORIC', false),
         (98,'Yudkowsky', '2014-07-01 01:01:01', 'Nulla semper tellus id', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'CHILD', 'HISTORIC', false),
         (99,'Yudkowsky', '2014-07-01 01:01:01', 'orci. Ut sagittis lobortis', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'NANOSTORY', 'ADVENTURE', 'HISTORIC', false),
-        (100,'Greg Egan','2014-07-01 01:01:01', 'Curabitur vel lectus. Cum', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'ADVENTURE', 'HISTORIC', false)
+        (100,'Greg Egan','2014-07-01 01:01:01', 'Curabitur vel lectus. Cum', 'est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu', 'POETRY', 'ADVENTURE', 'HISTORIC', false);
 
 insert into VisitDate(storyId, visitDate)
 values  (1, '2000-02-01 01:01:01'),
