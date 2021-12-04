@@ -78,11 +78,12 @@ public class StoryService {
     @PermitAll
     public List<Story> findStoriesByCurrentUser(Integer page, Integer size){
         String currentUsername = currentUser.getName();
-        final TypedQuery<Story> query = em.createQuery("SELECT * FROM Story s " +
-                "WHERE s.author = :username", Story.class)
+        final TypedQuery<Story> query = em.createQuery("SELECT s FROM Story s " +
+                "WHERE s.author.login LIKE :username " +
+                "ORDER BY s.date DESC, s.id", Story.class)
                 .setFirstResult(getStartPagination(page, size))
                 .setMaxResults(checkSize(size));
-        query.setParameter("username", currentUsername);
+        query.setParameter("username", "%" + currentUsername + "%");
         return query.getResultList();
     }
 

@@ -1,11 +1,9 @@
 package es.uvigo.esei.dgss.teamA.microstories.service;
 
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.Genre;
-import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
-import es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset;
-import es.uvigo.esei.dgss.teamA.microstories.entities.Theme;
-import es.uvigo.esei.dgss.teamA.microstories.service.security.utils.TestPrincipal;
+import es.uvigo.esei.dgss.teamA.microstories.entities.*;
+
+import es.uvigo.esei.dgss.teamA.microstories.service.util.security.TestPrincipal;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -21,7 +19,6 @@ import org.junit.runner.RunWith;
 
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
-import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -110,6 +107,7 @@ public class StoryServiceIntegrationTest {
     @ShouldMatchDataSet("stories.xml")
     public void testFindStoriesByTextPageNull() {
         List<Story> storyList = this.facade.findStoriesByText(TEXT, null, SIZE);
+        principal.setName(existentStory().getAuthor().getLogin());
 
         final List<Story> recentStories = storiesOf(TEXT, 0, SIZE);
 
@@ -311,7 +309,7 @@ public class StoryServiceIntegrationTest {
         final List<Story> stories = this.facade.findStoriesByCurrentUser(PAGE, SIZE);
 
         final List<Story> recentStories = recentStories().stream()
-                .filter(i -> i.getAuthor().equals(username))
+                .filter(i -> i.getAuthor().getLogin().equals(username))
                 .limit(SIZE)
                 .collect(Collectors.toList());
 
