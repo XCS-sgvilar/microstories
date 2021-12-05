@@ -190,6 +190,21 @@ public class StoryDataset {
                 .collect(Collectors.toList());
     }
 
+    public static  List<Story> storiesByAuthor(final String author, final Integer start, final Integer end) {
+
+        final List<Story> stories = new ArrayList<>();
+
+        for (final Story story : stories()) {
+            if (author.equals(story.getAuthor().getLogin())) {
+                stories.add(story);
+            }
+        }
+
+        Collections.sort(stories, Comparator.comparing(Story::getDate).reversed());
+
+        return stories.subList(Math.min(stories.size(), start), Math.min(stories.size(), end));
+    }
+
     public static List<Story> storiesOf(String text, int start, int end) {
         final List<Story> stories = new ArrayList<>();
 

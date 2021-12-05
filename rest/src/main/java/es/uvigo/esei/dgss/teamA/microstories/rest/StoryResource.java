@@ -106,6 +106,23 @@ public class StoryResource {
 
     }
 
+    @Path("user/{login}/microstory")
+    @GET
+    public Response getUserMicrostories(@NotNull @QueryParam("login") String login, @QueryParam("page") Integer page,
+            @DefaultValue("10") @QueryParam("maxItems") Integer maxItems) {
+
+        List<Story> stories = new ArrayList<>();
+
+        if ((page == null || page >= 0) && (maxItems == null || maxItems >= 0)) {
+            stories = this.storyService.findStoriesByCurrentUser(login, page, maxItems);
+        }
+
+        if (stories.isEmpty()) {
+            return Response.ok("No entries").build();
+        }
+        return Response.ok(stories).build();
+    }
+
     public Date getInitDate(Publicated publicated) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MINUTE, 0);

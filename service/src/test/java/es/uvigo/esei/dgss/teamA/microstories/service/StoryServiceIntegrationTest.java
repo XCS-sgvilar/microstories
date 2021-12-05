@@ -30,6 +30,7 @@ import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existe
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentId;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesByAuthor;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertNull;
@@ -107,7 +108,6 @@ public class StoryServiceIntegrationTest {
     @ShouldMatchDataSet("stories.xml")
     public void testFindStoriesByTextPageNull() {
         List<Story> storyList = this.facade.findStoriesByText(TEXT, null, SIZE);
-        principal.setName(existentStory().getAuthor().getLogin());
 
         final List<Story> recentStories = storiesOf(TEXT, 0, SIZE);
 
@@ -302,18 +302,101 @@ public class StoryServiceIntegrationTest {
 
     @Test
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByCurrentUser(){
-        String username = existentStory().getAuthor().getLogin();
+    public void testFindStoriesByAuthor() {
+
+        String username = "Bruno";
         principal.setName(username);
+        final Integer page = 0;
+        final List<Story> stories = storiesByAuthor(username, page, SIZE);
 
-        final List<Story> stories = this.facade.findStoriesByCurrentUser(PAGE, SIZE);
+        List<Story> storyList = this.facade.findStoriesByCurrentUser(username, page, SIZE);
 
-        final List<Story> recentStories = recentStories().stream()
-                .filter(i -> i.getAuthor().getLogin().equals(username))
-                .limit(SIZE)
-                .collect(Collectors.toList());
-
-        assertThat(recentStories, containsStorysInOrder(stories));
+        Assert.assertNotNull(storyList);
+        Assert.assertEquals(stories.size(), storyList.size());
+        assertThat(stories, containsStorysInOrder(storyList));
     }
 
+    @Test(expected = EJBTransactionRolledbackException.class)
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByAuthorNull() {
+
+        String username = "Bruno";
+        principal.setName(username);
+        final Integer page = 0;
+
+        this.facade.findStoriesByCurrentUser(null, page, SIZE);
+    }
+
+    @Test(expected = EJBTransactionRolledbackException.class)
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByEmptyAuthor() {
+
+        String username = "Bruno";
+        principal.setName(username);
+        final Integer page = 0;
+
+        this.facade.findStoriesByCurrentUser("", page, SIZE);
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByAuthorPageNull() {
+
+        String username = "Bruno";
+        principal.setName(username);
+        final List<Story> stories = storiesByAuthor(username, 0, SIZE);
+
+        List<Story> storyList = this.facade.findStoriesByCurrentUser(username, null, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertEquals(stories.size(), storyList.size());
+        assertThat(stories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByAuthorPageNegative() {
+
+        String username = "Bruno";
+        principal.setName(username);
+        final List<Story> stories = storiesByAuthor(username, 0, SIZE);
+
+        List<Story> storyList = this.facade.findStoriesByCurrentUser(username, -1, SIZE);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertEquals(stories.size(), storyList.size());
+        assertThat(stories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByAuthorSizeNull() {
+
+        String username = "Bruno";
+        principal.setName(username);
+        final Integer page = 0;
+        final List<Story> stories = storiesByAuthor(username, page, SIZE);
+
+        List<Story> storyList = this.facade.findStoriesByCurrentUser(username, page, null);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertEquals(stories.size(), storyList.size());
+        assertThat(stories, containsStorysInOrder(storyList));
+    }
+
+    @Test
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByAuthorSizeNegative() {
+
+        String username = "Bruno";
+        principal.setName(username);
+        final Integer page = 0;
+        final List<Story> stories = storiesByAuthor(username, page, SIZE);
+
+        List<Story> storyList = this.facade.findStoriesByCurrentUser(username, page, -10);
+
+        Assert.assertNotNull(storyList);
+        Assert.assertEquals(stories.size(), storyList.size());
+        assertThat(stories, containsStorysInOrder(storyList));
+    }
 }

@@ -76,14 +76,24 @@ public class StoryService {
     }
 
     @PermitAll
-    public List<Story> findStoriesByCurrentUser(Integer page, Integer size){
+    public List<Story> findStoriesByCurrentUser(final String login, final Integer page, final Integer size){
+
+        System.out.println("QUERY");
+        System.out.println(getStartPagination(page, size));
+        System.out.println(checkSize(size));
+
         String currentUsername = currentUser.getName();
+
+        if (login == null || "".equals(login) || !currentUsername.equals(login)) {
+            throw new IllegalArgumentException();
+        }
+
         final TypedQuery<Story> query = em.createQuery("SELECT s FROM Story s " +
-                "WHERE s.author.login LIKE :username " +
-                "ORDER BY s.date DESC, s.id", Story.class)
+                "WHERE s.author.login = :username ORDER BY s.date DESC, s.id", Story.class)
                 .setFirstResult(getStartPagination(page, size))
                 .setMaxResults(checkSize(size));
-        query.setParameter("username", "%" + currentUsername + "%");
+
+        query.setParameter("username", currentUsername);
         return query.getResultList();
     }
 
