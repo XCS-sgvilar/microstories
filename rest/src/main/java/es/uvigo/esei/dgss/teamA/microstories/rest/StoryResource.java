@@ -108,8 +108,10 @@ public class StoryResource {
 
     @Path("user/{login}/microstory")
     @GET
-    public Response getUserMicrostories(@NotNull @QueryParam("login") String login, @QueryParam("page") Integer page,
+    public Response getUserMicrostories(@NotNull @PathParam("login") String login,
+            @DefaultValue("0")  @QueryParam("page") Integer page,
             @DefaultValue("10") @QueryParam("maxItems") Integer maxItems) {
+        //http://localhost:8080/microstories-2122-teamA/rest/api/microstory/user/Bruno/microstory
 
         List<Story> stories = new ArrayList<>();
 
