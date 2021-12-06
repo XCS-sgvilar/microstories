@@ -302,7 +302,7 @@ public class StoryServiceIntegrationTest {
 
     @Test
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByAuthor() {
+    public void testFindStoriesByCurrentUser() {
 
         String username = "Bruno";
         principal.setName(username);
@@ -318,7 +318,18 @@ public class StoryServiceIntegrationTest {
 
     @Test(expected = EJBTransactionRolledbackException.class)
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByAuthorNull() {
+    public void testFindStoriesByCurrentUserNotLoged() {
+
+        String username = "Bruno";
+        principal.setName(username);
+        final Integer page = 0;
+
+        this.facade.findStoriesByCurrentUser("Scott Aaronson", page, SIZE);
+    }
+
+    @Test(expected = EJBTransactionRolledbackException.class)
+    @ShouldMatchDataSet("stories.xml")
+    public void testFindStoriesByCurrentUserNull() {
 
         String username = "Bruno";
         principal.setName(username);
@@ -329,7 +340,7 @@ public class StoryServiceIntegrationTest {
 
     @Test(expected = EJBTransactionRolledbackException.class)
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByEmptyAuthor() {
+    public void testFindStoriesByEmptyCurrentUser() {
 
         String username = "Bruno";
         principal.setName(username);
@@ -340,7 +351,7 @@ public class StoryServiceIntegrationTest {
 
     @Test
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByAuthorPageNull() {
+    public void testFindStoriesByCurrentUserPageNull() {
 
         String username = "Bruno";
         principal.setName(username);
@@ -355,7 +366,7 @@ public class StoryServiceIntegrationTest {
 
     @Test
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByAuthorPageNegative() {
+    public void testFindStoriesByCurrentUserPageNegative() {
 
         String username = "Bruno";
         principal.setName(username);
@@ -370,7 +381,7 @@ public class StoryServiceIntegrationTest {
 
     @Test
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByAuthorSizeNull() {
+    public void testFindStoriesByCurrentUserSizeNull() {
 
         String username = "Bruno";
         principal.setName(username);
@@ -386,7 +397,7 @@ public class StoryServiceIntegrationTest {
 
     @Test
     @ShouldMatchDataSet("stories.xml")
-    public void testFindStoriesByAuthorSizeNegative() {
+    public void testFindStoriesByCurrentUserSizeNegative() {
 
         String username = "Bruno";
         principal.setName(username);
