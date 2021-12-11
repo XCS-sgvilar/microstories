@@ -29,29 +29,6 @@ create table Story
 (
     id int auto_increment
         primary key,
-    author varchar(100),
-    content varchar(1000) not null,
-    date datetime not null,
-    genre varchar(9) not null,
-    mainTheme varchar(15) not null,
-    publicated bit not null,
-    secondaryTheme varchar(15) null,
-    title varchar(80) not null,
-   FOREIGN KEY (author) REFERENCES User(login)
-);
-
-create table VisitDate
-(
-    storyId int not null,
-    visitDate datetime null,
-    constraint FK90v9x8f0qu1o4rBtdlsqgk3uf
-        foreign key (storyId) references Story(id)
-);
-
-create table Story
-(
-    id int auto_increment
-        primary key,
     author varchar(100) not null,
     content varchar(1000) not null,
     date datetime not null,
@@ -77,18 +54,16 @@ create table VisitDate
 --
 
 -- Write here the data insertion queries.
-insert into User (login,password)
-values ('JK Rowling' ,'JK RowlingPasswd'),
-('Scott Aaronson' ,'Scott AaronsonPasswd'),
-('Victor' ,'VictorPasswd'),
-('Brandon Sanderson' ,'Brandon SandersonPasswd'),
-('Santiago' ,'SantiagoPasswd'),
-('Ines' ,'InesPasswd'),
-('Bruno' ,'BrunoPasswd'),
-('Yudkowsky' ,'I am a potato 927'),
-('Greg Egan' ,'Greg EganPsswd');
-
-
+insert into User (login,password,role)
+values ('JK Rowling' ,'142a453f83f77a317055b6a97bcf4926','user'),
+('Scott Aaronson' ,'c03d4ef91b99dac40937df388be9b64a','user'),
+('Victor' ,'f04d3903c8391de392e2fb5dcd138f3c','user'),
+('Brandon Sanderson' ,'4f71617e5d494f1ecae9070d471ff25b','user'),
+('Santiago' ,'d48a5c1849529dbd4e877e103435002d','user'),
+('Ines' ,'8d314bb5b4bf8f27b74728ffb5b0ccf2','user'),
+('Bruno' ,'127f97e156f43ee0db81daa022ccc7c0','user'),
+('Yudkowsky' ,'121668a390d2da8a8f5558e6e19ce917','user'),
+('Greg Egan' ,'06591d27f066923621df589cef4b1071','user');
 
 
 
@@ -212,4 +187,4 @@ values  (1, '2000-02-01 01:01:01'),
         (8, '2000-02-03 01:01:01'),
         (8, '2000-02-09 01:01:01'),
         (9, '2000-02-19 01:01:01'),
-        (10, '2000-02-19 01:01:01')
+        (10, '2000-02-19 01:01:01');

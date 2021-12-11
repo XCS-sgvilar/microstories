@@ -1,7 +1,8 @@
 create table User
 (
     login varchar(100) not null  primary key,
-    password varchar(100) not null
+    password varchar(100) not null,
+    role varchar(100) not null
 );
 
 create table Story

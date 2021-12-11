@@ -1,14 +1,14 @@
 
-insert into User (login,password)
-values ('JK Rowling' ,'JK RowlingPasswd'),
-('Scott Aaronson' ,'Scott AaronsonPasswd'),
-('Victor' ,'VictorPasswd'),
-('Brandon Sanderson' ,'Brandon SandersonPasswd'),
-('Santiago' ,'SantiagoPasswd'),
-('Ines' ,'InesPasswd'),
-('Bruno' ,'BrunoPasswd'),
-('Yudkowsky' ,'I am a potato 927'),
-('Greg Egan' ,'Greg EganPsswd');
+insert into User (login,password,role)
+values ('JK Rowling' ,'142a453f83f77a317055b6a97bcf4926','user'),
+('Scott Aaronson' ,'c03d4ef91b99dac40937df388be9b64a','user'),
+('Victor' ,'f04d3903c8391de392e2fb5dcd138f3c','user'),
+('Brandon Sanderson' ,'4f71617e5d494f1ecae9070d471ff25b','user'),
+('Santiago' ,'d48a5c1849529dbd4e877e103435002d','user'),
+('Ines' ,'8d314bb5b4bf8f27b74728ffb5b0ccf2','user'),
+('Bruno' ,'127f97e156f43ee0db81daa022ccc7c0','user'),
+('Yudkowsky' ,'121668a390d2da8a8f5558e6e19ce917','user'),
+('Greg Egan' ,'06591d27f066923621df589cef4b1071','user');
 
 
 insert into Story (id, author, date, title,  content,  genre, mainTheme, secondaryTheme, publicated)

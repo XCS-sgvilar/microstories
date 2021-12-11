@@ -1,36 +1,62 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
->
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <body>
-<nav class="navbar navbar-dark bg-dark">
-    <!-- Navbar content -->
-    <div class="container-fluid d-flex justify-content-between">
-        <a href="#{request.contextPath}/index.xhtml" class="navbar-brand d-flex align-items-center">μStories</a>
-        <h:form class="form-inline">
-            <div class="row">
-                <div class="col-6">
-                    <h:inputText value="#{storySearchMB.text}" class="form-control mr-sm-2" type="search" p:placeholder="Search by text" aria-label="Search"  />
+	<nav class="navbar navbar-dark bg-dark">
+		<!-- Navbar content -->
+		<div class="container-fluid d-flex justify-content-between">
+			<a href="#{request.contextPath}/index.xhtml"
+				class="navbar-brand d-flex align-items-center">μStories</a>
+			<h:form class="form-inline">
+				<div class="row">
+					<div class="col-6">
+						<h:inputText value="#{storySearchMB.text}"
+							class="form-control mr-sm-2" type="search"
+							p:placeholder="Search by text" aria-label="Search" />
 
-                </div>
-                <div class="col-4">
-                    <b:commandButton  class="btn btn-outline-info my-2 my-sm-0" value="Search" action="#{storySearchMB.searchByText()}">
-                        <i class="bi bi-search"></i>
-                    </b:commandButton>
-                </div>
-                <div class="col-2">
-                    <b:commandButton  style="border-color:transparent;" class="btn btn-outline-info my-2 my-sm-0" action="#{userMB.toProfile()}">
-                        <i style="font-size:large;" class="bi bi-person-circle"></i>
-                    </b:commandButton>
-                </div>
-            </div>
-        </h:form>
-    </div>
-</nav>
+					</div>
+					<div class="col-2">
+						<b:commandButton class="btn btn-outline-info my-2 my-sm-0"
+							value="Search" action="#{storySearchMB.searchByText()}">
+							<i class="bi bi-search"></i>
+						</b:commandButton>
+					</div>
+
+					<h:form rendered="#{login.currentUser.name != 'anonymous'}">
+						<div class="col-1">
+							<b:commandButton style="border-color:transparent;"
+								class="btn btn-outline-info my-2 my-sm-0"
+								action="#{userMB.toProfile()}">
+								<i style="font-size: large;" class="bi bi-person-circle"></i>
+							</b:commandButton>
+						</div>
+					</h:form>
+					
+					<h:form id="login-form" class="navbar-form navbar-right"
+						rendered="#{login.currentUser == 'anonymous'}">
+						
+						<div class="col-2">
+
+							<h:inputText id="login-field"
+								class="#{login.currentUser == 'anonymous' and !login.error ? 'form-control' : 'form-control alert-danger'}"
+								value="#{login.login}" p:placeholder="login"></h:inputText>
+							<h:inputSecret id="password-field"
+								class="#{login.currentUser == 'anonymous' and !login.error ? 'form-control' : 'form-control alert-danger'}"
+								value="#{login.password}" p:placeholder="password"></h:inputSecret>
+						</div>
+						<div class="col-2">
+						<h:commandButton id="submit" class="btn btn-success" value="Login"
+							action="#{login.doLogin}" />
+						</div>
+					</h:form>
+				</div>
+			</h:form>
+		</div>
+	</nav>
 </body>
 </html>

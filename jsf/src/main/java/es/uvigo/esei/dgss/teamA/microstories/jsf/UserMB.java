@@ -6,8 +6,10 @@ import es.uvigo.esei.dgss.teamA.microstories.service.StoryService;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -22,11 +24,11 @@ public class UserMB implements Serializable {
 
     @EJB
     StoryService storyService;
+    
+	@Inject
+	private Principal currentUser;
 
     private List<Story> myStories;
-
-    //FIXME CHANGE USERNAME LOGGED
-    private String nameUser = "Alexender Schidmt";
 
     private int page;
 
@@ -93,10 +95,7 @@ public class UserMB implements Serializable {
     }
 
     public String getNameUser() {
-        return nameUser;
+        return currentUser.getName();
     }
 
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
-    }
 }
