@@ -24,9 +24,9 @@ public class UserMB implements Serializable {
 
     @EJB
     StoryService storyService;
-    
-	@Inject
-	private Principal currentUser;
+
+    @Inject
+    private Principal currentUser;
 
     private List<Story> myStories;
 
@@ -41,11 +41,10 @@ public class UserMB implements Serializable {
 
     }
 
-    public String toProfile(){
+    public String toProfile() {
         this.page = 0;
 
-        //FIXME Cambiar por el metodo desarrollado
-        //this.myStories = storyService.findStoriesByText("est", PAGE, MAX_ITEMS);
+        this.myStories = storyService.findStoriesByCurrentUser(currentUser.getName(), PAGE, MAX_ITEMS);
 
         return "profile";
     }
@@ -53,8 +52,7 @@ public class UserMB implements Serializable {
     public String getPreviousStories() {
         this.page = this.page - 1;
 
-        //FIXME Cambiar por el metodo desarrollado
-        //this.myStories = storyService.findStoriesByText("est", this.page, MAX_ITEMS);
+        this.myStories = storyService.findStoriesByCurrentUser(currentUser.getName(), this.page, MAX_ITEMS);
 
         return "profile";
     }
@@ -62,20 +60,17 @@ public class UserMB implements Serializable {
     public String getNextStories() {
         this.page = this.page + 1;
 
-        //FIXME Cambiar por el metodo desarrollado
-        //this.myStories = storyService.findStoriesByText("est", this.page, MAX_ITEMS);
+        this.myStories = storyService.findStoriesByCurrentUser(currentUser.getName(), this.page, MAX_ITEMS);
 
         return "profile";
     }
 
-    public Boolean isPreviousButtonDisabled(){
+    public Boolean isPreviousButtonDisabled() {
         return this.page <= 0;
     }
 
-    public Boolean isNextButtonDisabled(){
-        return false;
-        //FIXME CAMBIAR POR EL METODO DESARROLLADO
-        //return storyService.findStoriesByText("est", this.page + 1, MAX_ITEMS).isEmpty();
+    public Boolean isNextButtonDisabled() {
+        return storyService.findStoriesByCurrentUser(currentUser.getName(), this.page + 1, MAX_ITEMS).isEmpty();
     }
 
     public List<Story> getMyStories() {
