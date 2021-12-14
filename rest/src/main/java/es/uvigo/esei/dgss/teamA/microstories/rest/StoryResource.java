@@ -36,13 +36,10 @@ public class StoryResource {
 
     @Path("recent")
     @GET
-    public Response getLastestStories() {
-        List<Story> stories = storyService.findLastStories();
-        List<Story> most_recent = new ArrayList<>();
-        if (stories.size() >= 6) {
-            most_recent = stories.subList(0, 6);
-        } else {
-            most_recent = stories;
+    public Response getLatestStories() {
+        List<Story> most_recent = storyService.findLastStories();
+        if (most_recent.size() >= 6) {
+            most_recent = most_recent.subList(0, 6);
         }
 
         return Response.ok(most_recent).build();
@@ -125,7 +122,7 @@ public class StoryResource {
         return Response.ok(stories).build();
     }
 
-    public Date getInitDate(Publicated publicated) {
+    private Date getInitDate(Publicated publicated) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);

@@ -1,6 +1,5 @@
 package es.uvigo.esei.dgss.teamA.microstories.rest;
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.Publicated;
 import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
 import es.uvigo.esei.dgss.teamA.microstories.service.StoryService;
 import org.easymock.EasyMockRunner;
@@ -15,9 +14,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
@@ -27,7 +24,6 @@ import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existe
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentId;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentTheme;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentContentFragment;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_ID;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.stories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesSearch;
@@ -68,7 +64,7 @@ public class StoryResourceUnitTest extends EasyMockSupport {
 
         replayAll();
 
-        final Response response = resource.getLastestStories();
+        final Response response = resource.getLatestStories();
 
         assertThat(response, hasOkStatus());
         assertThat(response.getEntity(), is(instanceOf(List.class)));
@@ -82,7 +78,7 @@ public class StoryResourceUnitTest extends EasyMockSupport {
 
         replayAll();
 
-        final Response response = resource.getLastestStories();
+        final Response response = resource.getLatestStories();
 
         assertThat(response, hasOkStatus());
         assertThat(response.getEntity(), is(instanceOf(List.class)));
