@@ -232,7 +232,7 @@ public class StoryDataset {
                     (theme == null || story.getMainTheme() == theme || story.getSecondaryTheme() == theme) &&
                     (initDate == null || story.getDate().compareTo(initDate) >= 0) &&
                     (endDate == null || story.getDate().compareTo(endDate) <= 0) &&
-                    (story.getPublicated() == true)) {
+                    (story.getPublicated())) {
                 stories.add(story);
             }
         }

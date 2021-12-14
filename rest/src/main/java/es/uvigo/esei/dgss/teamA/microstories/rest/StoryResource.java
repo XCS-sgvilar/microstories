@@ -19,9 +19,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * Resource that represents the stories in the application.
@@ -109,8 +109,8 @@ public class StoryResource {
     @Path("user/{login}/microstory")
     @GET
     public Response getUserMicrostories(@NotNull @PathParam("login") String login,
-            @DefaultValue("0")  @QueryParam("page") Integer page,
-            @DefaultValue("10") @QueryParam("maxItems") Integer maxItems) {
+                                        @DefaultValue("0") @QueryParam("page") Integer page,
+                                        @DefaultValue("10") @QueryParam("maxItems") Integer maxItems) {
         //http://localhost:8080/microstories-2122-teamA/rest/api/microstory/user/Bruno/microstory
 
         List<Story> stories = new ArrayList<>();

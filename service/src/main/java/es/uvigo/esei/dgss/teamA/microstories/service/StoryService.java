@@ -79,11 +79,6 @@ public class StoryService {
 
     @PermitAll
     public List<Story> findStoriesByCurrentUser(final String login, final Integer page, final Integer size) {
-
-        System.out.println("QUERY");
-        System.out.println(getStartPagination(page, size));
-        System.out.println(checkSize(size));
-
         String currentUsername = currentUser.getName();
 
         if (login == null || "".equals(login) || !currentUsername.equals(login)) {

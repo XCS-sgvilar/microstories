@@ -85,7 +85,7 @@ public class StoryResourceRestTest {
     public void testList(
             @ArquillianResteasyResource(BASE_PATH + "recent")
                     ResteasyWebTarget webTarget
-    ) throws Exception {
+    ) {
         final Response response = webTarget.request().get();
 
         assertThat(response, hasOkStatus());
@@ -116,7 +116,7 @@ public class StoryResourceRestTest {
     public void testGet(
             @ArquillianResteasyResource(BASE_PATH + EXISTENT_ID)
                     ResteasyWebTarget webTarget
-    ) throws Exception {
+    ) {
         final Response response = webTarget.request().get();
 
         assertThat(response, hasOkStatus());
@@ -149,7 +149,7 @@ public class StoryResourceRestTest {
     public void testGetNonExistent(
             @ArquillianResteasyResource(BASE_PATH + NON_EXISTENT_ID)
                     ResteasyWebTarget webTarget
-    ) throws Exception {
+    ) {
         final Response response = webTarget.request().get();
 
         assertThat(response, hasBadRequestStatus());
@@ -177,7 +177,7 @@ public class StoryResourceRestTest {
     public void testSearchByText(
             @ArquillianResteasyResource(BASE_PATH_ADD_PARAMS + CONTAINS_PARAM_PATH + EXISTENT_CONTENT_FRAGMENT)
                     ResteasyWebTarget webTarget
-    ) throws Exception {
+    ) {
         // Asumimos una ruta tipo /api/microstory?contains={text}
         // Test busqueda por contenido sin especificar parametros opcionales
         int start = 0;
@@ -213,7 +213,7 @@ public class StoryResourceRestTest {
     public void testSearchStories(
             @ArquillianResteasyResource(BASE_PATH_ADD_PARAMS_SEARCH + THEME_PARAM_PATH + EXISTENT_THEME_STRING + ADD_PARAM_CHAR + GENRE_PARAM_PATH + EXISTENT_GENRE_STRING + ADD_PARAM_CHAR + PUBLICATED_PARAM_PATH + EXISTENT_PUBLICATED_STRING)
                     ResteasyWebTarget webTarget
-    ) throws Exception {
+    ) {
         int start = 0;
         int end = 10;
         Calendar calendar = Calendar.getInstance();
