@@ -8,7 +8,11 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.extension.rest.client.ArquillianResteasyResource;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-import org.jboss.arquillian.persistence.*;
+import org.jboss.arquillian.persistence.Cleanup;
+import org.jboss.arquillian.persistence.CleanupUsingScript;
+import org.jboss.arquillian.persistence.ShouldMatchDataSet;
+import org.jboss.arquillian.persistence.TestExecutionPhase;
+import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -17,8 +21,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.CoreMatchers.is;
-
 import javax.ws.rs.core.Response;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,9 +28,21 @@ import java.util.List;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.*;
-import static es.uvigo.esei.dgss.teamA.microstories.http.util.HasHttpStatus.hasOkStatus;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_CONTENT_FRAGMENT;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_GENRE;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_GENRE_STRING;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_ID;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_PUBLICATED_STRING;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_THEME;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_THEME_STRING;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.NON_EXISTENT_ID;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesSearch;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storyWithId;
 import static es.uvigo.esei.dgss.teamA.microstories.http.util.HasHttpStatus.hasBadRequestStatus;
+import static es.uvigo.esei.dgss.teamA.microstories.http.util.HasHttpStatus.hasOkStatus;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Arquillian.class)
@@ -43,8 +57,6 @@ public class StoryResourceRestTest {
     private final static String ADD_PARAM_CHAR = "&";
     private final static String PAGE_PARAM_PATH = "page=";
     private final static String MAX_ITEMS_PARAM_PATH = "maxItems=";
-//    private final static String PAGE_PARAM = PAGE_PARAM_PATH + "1";
-//    private final static String MAX_ITEMS_PARAM = MAX_ITEMS_PARAM_PATH + "20";
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -75,8 +87,6 @@ public class StoryResourceRestTest {
                     ResteasyWebTarget webTarget
     ) throws Exception {
         final Response response = webTarget.request().get();
-        System.out.println(webTarget.request());
-        System.out.println(response.getStatus());
 
         assertThat(response, hasOkStatus());
 
@@ -97,7 +107,8 @@ public class StoryResourceRestTest {
     @InSequence(4)
     @UsingDataSet("stories.xml")
     @Cleanup(phase = TestExecutionPhase.NONE)
-    public void beforeGet() {}
+    public void beforeGet() {
+    }
 
     @Test
     @InSequence(5)
@@ -118,7 +129,7 @@ public class StoryResourceRestTest {
 
     @Test
     @InSequence(6)
-    @ShouldMatchDataSet("stories.xml")
+    @ShouldMatchDataSet(value = {"stories.xml", "stories-new-visit.xml"}, excludeColumns = "VISITDATE.visitDate")
     @CleanupUsingScript({
             "cleanup.sql", "cleanup-autoincrement.sql"
     })
@@ -172,8 +183,6 @@ public class StoryResourceRestTest {
         int start = 0;
         int end = 10;
         final Response response = webTarget.request().get();
-        System.out.println(webTarget.request());
-        System.out.println(response.getStatus());
 
         assertThat(response, hasOkStatus());
 
@@ -211,8 +220,6 @@ public class StoryResourceRestTest {
         calendar.set(calendar.get(Calendar.YEAR), Calendar.JANUARY, 1, 0, 0, 0);
         Date initDate = calendar.getTime();
         final Response response = webTarget.request().get();
-        System.out.println(webTarget.request());
-        System.out.println(response.getStatus());
 
         assertThat(response, hasOkStatus());
 
@@ -229,6 +236,5 @@ public class StoryResourceRestTest {
     })
     public void afterSearchStories() {
     }
-
 
 }

@@ -1,8 +1,10 @@
 package es.uvigo.esei.dgss.teamA.microstories.service;
 
 
-import es.uvigo.esei.dgss.teamA.microstories.entities.*;
-
+import es.uvigo.esei.dgss.teamA.microstories.entities.Genre;
+import es.uvigo.esei.dgss.teamA.microstories.entities.Story;
+import es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset;
+import es.uvigo.esei.dgss.teamA.microstories.entities.Theme;
 import es.uvigo.esei.dgss.teamA.microstories.service.util.security.TestPrincipal;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -27,14 +29,17 @@ import java.util.stream.Collectors;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentStory;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.hottestStories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentId;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
-import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesByAuthor;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+
 
 @RunWith(Arquillian.class)
 @UsingDataSet("stories.xml")
@@ -72,7 +77,7 @@ public class StoryServiceIntegrationTest {
     }
 
     @Test
-    @ShouldMatchDataSet("stories.xml")
+    @ShouldMatchDataSet(value = {"stories.xml", "stories-new-visit.xml"}, excludeColumns = "VISITDATE.visitDate")
     public void testGetStory() {
         final Story existentStory = existentStory();
 
@@ -299,6 +304,37 @@ public class StoryServiceIntegrationTest {
 
         assertThat(recentStories, containsStorysInOrder(storyList));
     }
+
+
+    @Test
+    @ShouldMatchDataSet(value = {"stories.xml", "stories-new-visit.xml"}, excludeColumns = "VISITDATE.visitDate")
+    public void testStoryCountIncrement() {
+        final Story existentStory = existentStory();
+        final Story actualStory = facade.getById(existentStory.getId());
+
+        long expectedVisits = existentStory.getVisitDate().size() + 1;
+        long obtainedVisits = actualStory.getVisitDate().size();
+
+        assertEquals(expectedVisits, obtainedVisits);
+    }
+
+
+    @Test
+    @ShouldMatchDataSet(value = "stories.xml")
+    public void testFindStoryHottest() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2000, Calendar.FEBRUARY, 1, 1, 0, 0);
+        Date initDate = calendar.getTime();
+        calendar.set(2021, Calendar.FEBRUARY, 28, 23, 59, 59);
+        Date endDate = calendar.getTime();
+
+
+        final List<Story> expectedStories = hottestStories(initDate, endDate, 0, SIZE);
+        final List<Story> queriedStories = facade.findHottestStories(initDate, endDate, 0, SIZE);
+
+        assertThat(expectedStories, containsStorysInOrder(queriedStories));
+    }
+
 
     @Test
     @ShouldMatchDataSet("stories.xml")

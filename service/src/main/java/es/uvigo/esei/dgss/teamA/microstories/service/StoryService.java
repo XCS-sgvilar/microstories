@@ -35,7 +35,13 @@ public class StoryService {
 
     @PermitAll
     public Story getById(int id) {
-        return em.find(Story.class, id);
+        Story story = em.find(Story.class, id);
+        if (story != null) {
+            story.getVisitDate().add(new Date());
+            em.persist(story);
+        }
+
+        return story;
     }
 
     @PermitAll
@@ -43,10 +49,6 @@ public class StoryService {
         if (text == null) {
             throw new IllegalArgumentException();
         }
-        System.out.println("QUERY");
-        System.out.println(getStartPagination(page, size));
-        System.out.println(checkSize(size));
-
         final TypedQuery<Story> query = em.createQuery(
                         "SELECT s FROM Story s " +
                                 "WHERE s.publicated = TRUE " +
@@ -76,7 +78,7 @@ public class StoryService {
     }
 
     @PermitAll
-    public List<Story> findStoriesByCurrentUser(final String login, final Integer page, final Integer size){
+    public List<Story> findStoriesByCurrentUser(final String login, final Integer page, final Integer size) {
 
         System.out.println("QUERY");
         System.out.println(getStartPagination(page, size));
@@ -89,7 +91,7 @@ public class StoryService {
         }
 
         final TypedQuery<Story> query = em.createQuery("SELECT s FROM Story s " +
-                "WHERE s.author.login = :username ORDER BY s.date DESC, s.id", Story.class)
+                        "WHERE s.author.login = :username ORDER BY s.date DESC, s.id", Story.class)
                 .setFirstResult(getStartPagination(page, size))
                 .setMaxResults(checkSize(size));
 
@@ -109,5 +111,20 @@ public class StoryService {
 
     private Integer checkPage(Integer page) {
         return (page == null || page < PAGE) ? PAGE : page;
+    }
+
+    @PermitAll
+    public List<Story> findHottestStories(Date initDate, Date endDate, Integer page, Integer size) {
+        return em.createQuery("SELECT s FROM Story s " +
+                        "join s.visitDate vd " +
+                        "WHERE s.publicated = TRUE " +
+                        "AND vd > :initDate AND vd < :endDate " +
+                        "GROUP BY s " +
+                        "ORDER BY count(vd) DESC, s.id", Story.class)
+                .setFirstResult(getStartPagination(page, size))
+                .setMaxResults(checkSize(size))
+                .setParameter("initDate", initDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
     }
 }

@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,13 +57,13 @@ public class Story implements Serializable {
     private Boolean publicated;
 
     @ManyToOne
-    @JoinColumn(name="author", nullable=false)
+    @JoinColumn(name = "author", nullable = false)
     private User author;
 
     @ElementCollection
     @CollectionTable(
-            name="VisitDate",
-            joinColumns = @JoinColumn(name="storyId")
+            name = "VisitDate",
+            joinColumns = @JoinColumn(name = "storyId")
     )
     @Column(name = "visitDate")
     private List<Date> visitDate;
@@ -71,7 +72,7 @@ public class Story implements Serializable {
 
     }
 
-    public Story(int id,User author, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
+    public Story(int id, User author, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
         this.id = id;
         this.setAuthor(author);
         this.setDate(date);
@@ -83,9 +84,9 @@ public class Story implements Serializable {
         this.setPublicated(publicated);
     }
 
-	public Story(User author,Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
-		this.setAuthor(author);
-		this.setDate(date);
+    public Story(User author, Date date, String title, String content, Genre genre, Theme mainTheme, Theme secondaryTheme, Boolean publicated) {
+        this.setAuthor(author);
+        this.setDate(date);
         this.setTitle(title);
         this.setContent(content);
         this.setGenre(genre);
@@ -97,15 +98,16 @@ public class Story implements Serializable {
     public int getId() {
         return id;
     }
-   @XmlTransient
-   public User getAuthor() {
-	return author;
-}
-    
+
+    @XmlTransient
+    public User getAuthor() {
+        return author;
+    }
+
     private void setAuthor(User author) {
-    	 requireNonNull(author, "author can't be null");
-  		this.author=author;
-  	}
+        requireNonNull(author, "author can't be null");
+        this.author = author;
+    }
 
     public Date getDate() {
         return new Date(date.getTime());
@@ -180,6 +182,7 @@ public class Story implements Serializable {
 
     @XmlTransient
     public List<Date> getVisitDate() {
+        if (visitDate == null) visitDate = new ArrayList<>();
         return visitDate;
     }
 
@@ -201,5 +204,13 @@ public class Story implements Serializable {
                 ", publicated=" + publicated +
                 ", visitDate=" + visitDate +
                 '}';
+    }
+
+    @XmlTransient
+    public long getVisitCountInDateRange(Date initDate, Date endDate) {
+        return getVisitDate().stream()
+                .filter(i -> i.after(initDate))
+                .filter(i -> i.before(endDate))
+                .count();
     }
 }
