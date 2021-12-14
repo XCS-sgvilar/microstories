@@ -202,7 +202,6 @@ public class Story implements Serializable {
                 ", mainTheme=" + mainTheme +
                 ", secondaryTheme=" + secondaryTheme +
                 ", publicated=" + publicated +
-                ", visitDate=" + visitDate +
                 '}';
     }
 
