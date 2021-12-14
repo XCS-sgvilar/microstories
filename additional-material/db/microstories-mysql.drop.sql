@@ -1,4 +1,4 @@
 
-drop table VisitDate
-drop table Story
-drop table User
+drop table VisitDate;
+drop table Story;
+drop table User;
