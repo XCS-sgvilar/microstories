@@ -14,13 +14,13 @@
 				class="navbar-brand d-flex align-items-center">μStories</a>
 			<h:form class="form-inline">
 				<div class="row">
-					<div class="col-6">
+					<div class="#{login.currentUser == 'anonymous'? 'col-4' : 'col-5'}">
 						<h:inputText value="#{storySearchMB.text}"
 							class="form-control mr-sm-2" type="search"
 							p:placeholder="Search by text" aria-label="Search" />
 
 					</div>
-					<div class="col-2">
+					<div class="#{login.currentUser == 'anonymous'? 'col-2' : 'col-3'}">
 						<b:commandButton class="btn btn-outline-info my-2 my-sm-0"
 							value="Search" action="#{storySearchMB.searchByText()}">
 							<i class="bi bi-search"></i>
@@ -28,7 +28,7 @@
 					</div>
 
 					<h:form rendered="#{login.currentUser.name != 'anonymous'}">
-						<div class="col-1">
+						<div class="col-2">
 							<b:commandButton style="border-color:transparent;"
 								class="btn btn-outline-info my-2 my-sm-0"
 								action="#{userMB.toProfile()}">
@@ -37,11 +37,11 @@
 
 							</b:commandButton>
 						</div>
-						<div class="col-1">
+						<div class="col-2">
 							<b:commandButton style="border-color:transparent;"
-								class="btn btn-outline-info my-2 my-sm-0"
+								class="btn btn-outline-danger my-2 my-sm-0"
 								action="#{login.doLogout()}">
-								<i class="fas fa-sign-out-alt"></i>
+								<i style="font-size: large;" class="bi bi-box-arrow-right"></i>
 							</b:commandButton>
 						</div>
 					</h:form>
@@ -49,7 +49,7 @@
 					<h:form id="login-form" class="navbar-form navbar-right"
 						rendered="#{login.currentUser == 'anonymous'}">
 
-						<div class="col-2">
+						<div class="col-3 input-group" style="width:25% !important">
 
 							<h:inputText id="login-field"
 								class="#{login.currentUser == 'anonymous' and !login.error ? 'form-control' : 'form-control alert-danger'}"
@@ -58,7 +58,7 @@
 								class="#{login.currentUser == 'anonymous' and !login.error ? 'form-control' : 'form-control alert-danger'}"
 								value="#{login.password}" p:placeholder="password"></h:inputSecret>
 						</div>
-						<div class="col-2">
+						<div class="col-3">
 							<h:commandButton id="submit" class="btn btn-success"
 								value="Login" action="#{login.doLogin}" />
 						</div>
