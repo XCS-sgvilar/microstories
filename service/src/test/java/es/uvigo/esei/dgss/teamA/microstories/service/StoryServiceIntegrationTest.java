@@ -329,8 +329,8 @@ public class StoryServiceIntegrationTest {
         Date endDate = calendar.getTime();
 
 
-        final List<Story> expectedStories = hottestStories(initDate, endDate, 0, SIZE);
-        final List<Story> queriedStories = facade.findHottestStories(initDate, endDate, 0, SIZE);
+        final List<Story> expectedStories = hottestStories(Genre.STORY, initDate, endDate, 0, SIZE);
+        final List<Story> queriedStories = facade.findHottestStories(Genre.STORY, initDate, endDate, 0, SIZE);
 
         assertThat(expectedStories, containsStorysInOrder(queriedStories));
     }

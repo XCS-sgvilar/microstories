@@ -308,8 +308,11 @@ public class StoryDataset {
     }
 
 
-    public static List<Story> hottestStories(Date initDate, Date endDate, int page, int size) {
+    public static List<Story> hottestStories(Genre genre, Date initDate, Date endDate, int page, int size) {
         return stream(stories())
+                .filter(Story::getPublicated)
+                .filter(i -> i.getGenre().equals(genre))
+                .filter(i -> i.getVisitCountInDateRange(initDate, endDate) > 0)
                 .sorted(Comparator.comparing(i -> i.getVisitCountInDateRange(initDate, endDate)))
                 .sorted((o1, o2) ->
                         (int) (o2.getVisitCountInDateRange(initDate, endDate) - o1.getVisitCountInDateRange(initDate, endDate)))

@@ -109,15 +109,17 @@ public class StoryService {
     }
 
     @PermitAll
-    public List<Story> findHottestStories(Date initDate, Date endDate, Integer page, Integer size) {
+    public List<Story> findHottestStories(Genre genre, Date initDate, Date endDate, Integer page, Integer size) {
         return em.createQuery("SELECT s FROM Story s " +
                         "join s.visitDate vd " +
                         "WHERE s.publicated = TRUE " +
+                        "AND s.genre = :genre " +
                         "AND vd > :initDate AND vd < :endDate " +
                         "GROUP BY s " +
                         "ORDER BY count(vd) DESC, s.id", Story.class)
                 .setFirstResult(getStartPagination(page, size))
                 .setMaxResults(checkSize(size))
+                .setParameter("genre", genre)
                 .setParameter("initDate", initDate)
                 .setParameter("endDate", endDate)
                 .getResultList();
