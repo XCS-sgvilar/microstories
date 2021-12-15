@@ -3,6 +3,7 @@ package es.uvigo.esei.dgss.teamA.microstories.entities;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -269,6 +270,24 @@ public class StoryDataset {
     public static Genre existentGenre() {
         return EXISTENT_GENRE;
     }
+
+    private static Calendar visitDateCalendar() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(2000, Calendar.MARCH, 1, 0, 0, 0);
+        return cal;
+    }
+
+    public static Date initDateWithVisits() {
+        Calendar cal = visitDateCalendar();
+        cal.add(Calendar.MONTH, -1);
+        return cal.getTime();
+    }
+
+    public static Date endDateWithVisits() {
+        Calendar cal = visitDateCalendar();
+        return cal.getTime();
+    }
+
 
     private static void addVisitDateToStories(SimpleDateFormat formatter, Story[] stories) throws ParseException {
         List<Date> dateStory0 = new ArrayList<>();

@@ -36,7 +36,9 @@ import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTE
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_THEME;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_THEME_STRING;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.NON_EXISTENT_ID;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.endDateWithVisits;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.hottestStories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.initDateWithVisits;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesSearch;
@@ -258,12 +260,8 @@ public class StoryResourceRestTest {
     ) {
         int start = 0;
         int end = 10;
-        Calendar cal = Calendar.getInstance();
-        cal.set(2000, Calendar.MARCH, 1, 0, 0, 0);
-        Date endDate = cal.getTime();
-        cal.add(Calendar.MONTH, -1);
-        Date initDate = cal.getTime();
-
+        Date endDate = endDateWithVisits();
+        Date initDate = initDateWithVisits();
         final Response response = webTarget.request().get();
 
         assertThat(response, hasOkStatus());

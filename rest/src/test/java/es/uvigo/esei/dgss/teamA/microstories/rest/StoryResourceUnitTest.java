@@ -14,7 +14,6 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -22,11 +21,13 @@ import java.util.List;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_GENRE;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.endDateWithVisits;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentContentFragment;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentGenre;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentId;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentTheme;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.hottestStories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.initDateWithVisits;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentContentFragment;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.stories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
@@ -217,11 +218,8 @@ public class StoryResourceUnitTest extends EasyMockSupport {
     public void testFindHottestStories() {
         int start = 0;
         int end = 10;
-        Calendar cal = Calendar.getInstance();
-        cal.set(2000, Calendar.MARCH, 1, 0, 0, 0);
-        Date endDate = cal.getTime();
-        cal.add(Calendar.MONTH, -1);
-        Date initDate = cal.getTime();
+        Date endDate = endDateWithVisits();
+        Date initDate = initDateWithVisits();
 
         final List<Story> stories = hottestStories(EXISTENT_GENRE, initDate, endDate, start, end);
 

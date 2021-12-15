@@ -28,8 +28,10 @@ import java.util.stream.Collectors;
 
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.containsStorysInOrder;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.IsEqualToStory.equalToStory;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.endDateWithVisits;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.existentStory;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.hottestStories;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.initDateWithVisits;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.nonExistentId;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesByAuthor;
@@ -322,12 +324,8 @@ public class StoryServiceIntegrationTest {
     @Test
     @ShouldMatchDataSet(value = "stories.xml")
     public void testFindStoryHottest() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2000, Calendar.FEBRUARY, 1, 1, 0, 0);
-        Date initDate = calendar.getTime();
-        calendar.set(2021, Calendar.FEBRUARY, 28, 23, 59, 59);
-        Date endDate = calendar.getTime();
-
+        Date endDate = endDateWithVisits();
+        Date initDate = initDateWithVisits();
 
         final List<Story> expectedStories = hottestStories(Genre.STORY, initDate, endDate, 0, SIZE);
         final List<Story> queriedStories = facade.findHottestStories(Genre.STORY, initDate, endDate, 0, SIZE);
