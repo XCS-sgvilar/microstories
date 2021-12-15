@@ -36,6 +36,7 @@ import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTE
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_THEME;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.EXISTENT_THEME_STRING;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.NON_EXISTENT_ID;
+import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.hottestStories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.recentStories;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesOf;
 import static es.uvigo.esei.dgss.teamA.microstories.entities.StoryDataset.storiesSearch;
@@ -50,6 +51,7 @@ public class StoryResourceRestTest {
     private final static String BASE_PATH = "api/microstory/";
     private final static String BASE_PATH_ADD_PARAMS = "api/microstory?";
     private final static String BASE_PATH_ADD_PARAMS_SEARCH = "api/microstory/search?";
+    private final static String BASE_PATH_HOTTEST = "api/microstory/hottest?";
     private final static String CONTAINS_PARAM_PATH = "contains=";
     private final static String THEME_PARAM_PATH = "theme=";
     private final static String GENRE_PARAM_PATH = "genre=";
@@ -57,6 +59,8 @@ public class StoryResourceRestTest {
     private final static String ADD_PARAM_CHAR = "&";
     private final static String PAGE_PARAM_PATH = "page=";
     private final static String MAX_ITEMS_PARAM_PATH = "maxItems=";
+    private static final String REFERENCE_DATE_PATH = "referenceDate=";
+    private static final String REFERENCE_DATE_WITH_VISITS = "03/01/2000";
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -235,6 +239,47 @@ public class StoryResourceRestTest {
             "cleanup.sql", "cleanup-autoincrement.sql"
     })
     public void afterSearchStories() {
+    }
+
+
+    @Test
+    @InSequence(16)
+    @UsingDataSet("stories.xml")
+    @Cleanup(phase = TestExecutionPhase.NONE)
+    public void beforeHottestStories() {
+    }
+
+    @Test
+    @InSequence(17)
+    @RunAsClient
+    public void testHottestStories(
+            @ArquillianResteasyResource(BASE_PATH_HOTTEST + GENRE_PARAM_PATH + EXISTENT_GENRE_STRING + ADD_PARAM_CHAR + ADD_PARAM_CHAR + REFERENCE_DATE_PATH + REFERENCE_DATE_WITH_VISITS)
+                    ResteasyWebTarget webTarget
+    ) {
+        int start = 0;
+        int end = 10;
+        Calendar cal = Calendar.getInstance();
+        cal.set(2000, Calendar.MARCH, 1, 0, 0, 0);
+        Date endDate = cal.getTime();
+        cal.add(Calendar.MONTH, -1);
+        Date initDate = cal.getTime();
+
+        final Response response = webTarget.request().get();
+
+        assertThat(response, hasOkStatus());
+
+        final List<Story> list = ListStoryType.readEntity(response);
+
+        assertThat(list, containsStorysInOrder(hottestStories(EXISTENT_GENRE, initDate, endDate, start, end)));
+    }
+
+    @Test
+    @InSequence(18)
+    @ShouldMatchDataSet("stories.xml")
+    @CleanupUsingScript({
+            "cleanup.sql", "cleanup-autoincrement.sql"
+    })
+    public void afterHottestStories() {
     }
 
 }

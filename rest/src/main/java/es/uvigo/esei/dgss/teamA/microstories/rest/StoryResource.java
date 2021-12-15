@@ -151,5 +151,26 @@ public class StoryResource {
         return initDate;
     }
 
+    @Path("hottest")
+    @GET
+    public Response hottestStories(
+            @QueryParam("genre") Genre genre,
+            @QueryParam("referenceDate") Date referenceDate,
+            @DefaultValue("0") @QueryParam("page") Integer page,
+            @DefaultValue("10") @QueryParam("maxItems") Integer maxItems) {
+        List<Story> stories = new ArrayList<>();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(referenceDate);
+        cal.add(Calendar.MONTH, -1);
+        Date initDate = cal.getTime();
+
+        if ((page == null || page >= 0) && (maxItems == null || maxItems >= 0)) {
+            stories = storyService.findHottestStories(genre, initDate, referenceDate, page, maxItems);
+        }
+        return Response.ok(stories).build();
+
+    }
+
 
 }
