@@ -40,7 +40,6 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(EasyMockRunner.class)
 public class StoryResourceUnitTest extends EasyMockSupport {
@@ -176,7 +175,7 @@ public class StoryResourceUnitTest extends EasyMockSupport {
 
         assertThat(response, hasOkStatus());
         assertThat(response.getEntity(), is(instanceOf(List.class)));
-        assertTrue(!stories.isEmpty());
+        assertFalse(stories.isEmpty());
         assertThat((List<Story>) response.getEntity(), containsStorysInOrder(stories));
     }
 
@@ -193,7 +192,7 @@ public class StoryResourceUnitTest extends EasyMockSupport {
 
         assertThat(response, hasOkStatus());
         assertThat(response.getEntity(), is(instanceOf(List.class)));
-        assertTrue(!stories.isEmpty());
+        assertFalse(stories.isEmpty());
         assertThat((List<Story>) response.getEntity(), containsStorysInOrder(stories));
     }
 
@@ -210,7 +209,7 @@ public class StoryResourceUnitTest extends EasyMockSupport {
 
         assertThat(response, hasOkStatus());
         assertThat(response.getEntity(), is(instanceOf(List.class)));
-        assertTrue(!stories.isEmpty());
+        assertFalse(stories.isEmpty());
         assertThat((List<Story>) response.getEntity(), containsStorysInOrder(stories));
     }
 
